@@ -9,16 +9,19 @@ bool GameWorld::Update()
         for (int col = 0; col < GetWidth(); ++col)
         {
             const auto neighbors = GetNeighbors(m_mapLast, row, col);
-            m_map[row][col] = GetSpriteNextState(m_mapLast[row][col], neighbors);
+            m_map[row][col] = GetCellNextState(m_mapLast[row][col], neighbors);
         }
     }
 }
 
-std::string GameWorld::GetWorldStr() const {
+std::string GameWorld::GetWorldStr() const
+{
     std::string world_str;
-    for(const WorldMapRow &row: m_map) {
-        for (const SpritePointer &sprite: row) {
-            world_str += sprite->GetStr();
+    for (const WorldMapRow &row : m_map)
+    {
+        for (const CellPointer &cell : row)
+        {
+            world_str += cell->GetStr();
         }
         world_str += '\n';
     }

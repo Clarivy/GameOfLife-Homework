@@ -2,10 +2,11 @@
 #define LIFERULE_H__
 
 #include <vector>
-#include "LifeSprite.h"
+#include "LifeCell.h"
 
-// Sprite Neighbors
-using SpriteNeighbors = std::vector<SpriteBase>;
+class GameWorld;
+
+// Cell Neighbors
 
 /**
  * Base Class of Rules
@@ -20,20 +21,67 @@ public:
     virtual ~LifeRuleBase() = default;
 
     /**
-     * Determines the next state of a cell based on the current state and the number of live neighbors
+     * @brief Determines the next state of a cell based on the current state and the number of live neighbors
+     *
+     * 1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+     * 2. Any live cell with two or three live neighbours lives on to the next generation.
+     * 3. Any live cell with more than three live neighbours dies, as if by over-population.
+     * 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
      *
      * @param current The current state of the cell
      * @param neighborse All the neighbors of the cell
      * @return The next state of the cell
      */
+    virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors);
 
-    virtual SpritePointer DetermineNextState(const SpritePointer current, const SpriteNeighbors &neighbors) const = 0;
+    /**
+     * @brief Get neighbors from map
+     *
+     * @param map The current map
+     * @param x Row coordinate
+     * @param y Col coordinate
+     * @return CellNeighbors, vector of cells
+     */
+    virtual CellNeighbors GetNeighbors(const GameWorld const *game_world, const int x, const int y) const;
 
-    virtual SpriteNeighbors AcquireNeighbors(const WorldMap2d &map, const int x, const int y) const;
+    /**
+     * @brief Create a Cell object based on the type
+     * 
+     * 'O' stands for alive
+     * '.' stands for dead
+     *
+     * @param x position of the cell
+     * @param y position of the cell
+     * @param type a char, indicate its type
+     * @return CellPointer, created cell
+     */
+    virtual CellPointer CreateCell(const int x, const int y, const char type);
+    
 };
 
 class LifeRuleColorised : public LifeRuleBase
 {
+    /**
+     * @brief New born cell is based on the color of its neighbors
+     *
+     * @param current
+     * @param neighbors
+     * @return CellPointer
+     */
+    virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) = 0;
+    
+    /**
+     * @brief Create a Cell object based on the type
+     * 
+     * 'R' and 'B' stand for alive, where R stands for red and B stands for blue
+     * '.' stands for dead
+     *
+     * @param x position of the cell
+     * @param y position of the cell
+     * @param type a char, indicate its type
+     * @return CellPointer, created cell
+     */
+    virtual CellPointer CreateCell(const int x, const int y, const char type) = 0;
 };
 
 class LifeRuleExtended : public LifeRuleBase

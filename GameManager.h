@@ -25,29 +25,30 @@ public:
     void StartGame();
 
     /**
-     * Updates the game
-     *
+     * @brief Updates the game
      * @return true if the game has changed, false otherwise
      */
     bool UpdateGame();
 
     /**
-     * Saves the current world to a file
-     *
+     * @brief Saves the current world to a file
+     * 
      * @param filename The name of the file to save to
      */
     void SaveWorld(const std::string &filename);
 
     /**
-     * Exits the game
+     * @brief Exits the game
      */
     void ExitGame();
 
     /**
-     * Loads a world from a .cells file
+     * @brief Loads a world from a .cells file
+     * 
      * The format of the file is as follows:
      * Comments start with a ! and are ignored
      * Cells are represented by a O or . (alive or dead respectively)
+     * Additional rules can be found in the documentation
      *
      * @param filename The name of the file to load
      */

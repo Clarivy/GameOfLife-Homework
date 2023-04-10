@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "GameManager.h"
-#include "LifeSprite.h"
+#include "LifeCell.h"
 #include "utils.h"
 
 void GameManager::StartGame()
@@ -80,7 +80,7 @@ void GameManager::LoadWorld(const std::string &filename)
             {
                 if (ch == '!')
                     break;
-                m_world->SetSprite(
+                m_world->SetCell(
                     current_row,
                     current_col,
                     ch);
