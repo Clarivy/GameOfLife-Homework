@@ -1,4 +1,11 @@
-// Author: Mario Talevski
+/**
+ * @brief CLI for the game
+ * 
+ * This part is derived from https://github.com/MarioTalevski/game-of-life
+ * 
+ * @author Mario Talevski
+ * 
+ */
 #include <iostream>
 #include <cstdlib>
 
@@ -65,12 +72,7 @@ KeyCode GetKey()
     }
 }
 
-const int gridSize = 25;
-void printGrid(bool gridOne[gridSize + 1][gridSize + 1]);
-void determineState(bool gridOne[gridSize + 1][gridSize + 1]);
-void clearScreen(void);
-
-void clearScreen(void)
+void clearScreen()
 {
 // Tested and working on Ubuntu and Cygwin
 #if defined(OS_WIN)
@@ -99,15 +101,4 @@ void clearScreen(void)
     std::cout << "\033[2J;"
               << "\033[1;1H"; // Clears screen and moves cursor to home pos on POSIX systems
 #endif
-}
-
-void compareGrid(bool gridOne[gridSize + 1][gridSize + 1], bool gridTwo[gridSize + 1][gridSize + 1])
-{
-    for (int a = 0; a < gridSize; a++)
-    {
-        for (int b = 0; b < gridSize; b++)
-        {
-            gridTwo[a][b] = gridOne[a][b];
-        }
-    }
 }
