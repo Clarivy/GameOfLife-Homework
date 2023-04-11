@@ -6,6 +6,8 @@
  * @author Vincent Godin, Mario Talevski, Qingcheng Zhao
  *
  */
+#ifndef GAMEOFLIFE_UTILS_H
+#define GAMEOFLIFE_UTILS_H
 #include <iostream>
 #include <cstdlib>
 
@@ -117,3 +119,5 @@ void clearScreen()
               << "\033[1;1H"; // Clears screen and moves cursor to home pos on POSIX systems
 #endif
 }
+
+#endif // GAMEOFLIFE_UTILS_H
