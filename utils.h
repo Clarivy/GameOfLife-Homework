@@ -1,10 +1,10 @@
 /**
  * @brief CLI for the game
- * 
- * This part is derived from https://github.com/MarioTalevski/game-of-life
- * 
- * @author Mario Talevski
- * 
+ *
+ * This part is derived from https://github.com/MarioTalevski/game-of-life and https://www.codeproject.com/Articles/16431/Add-color-to-your-std-cout
+ *
+ * @author Vincent Godin, Mario Talevski, Qingcheng Zhao
+ *
  */
 #include <iostream>
 #include <cstdlib>
@@ -16,56 +16,71 @@
 // Move OS defines up here to be used in different places
 #if defined(_WIN32) || defined(WIN32) || defined(__MINGW32__) || defined(__BORLANDC__)
 #define OS_WIN
+#include <windows.h> // Use for windows
 // WINDOWS COLORS
-#define COLOR_RED SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED)
-#define COLOR_GREEN SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN)
+inline std::ostream &COLOR_BLUE(std::ostream &s)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdout, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    return s;
+}
 
-#define COLOR_BLUE SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE)
+inline std::ostream &COLOR_RED(std::ostream &s)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdout,
+                            FOREGROUND_RED | FOREGROUND_INTENSITY);
+    return s;
+}
 
-#define COLOR_RESET SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15)
+inline std::ostream &COLOR_GREEN(std::ostream &s)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdout,
+                            FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    return s;
+}
+
+inline std::ostream &COLOR_RESET(std::ostream &s)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdout,
+                            FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    return s;
+}
 
 #elif defined(linux) || defined(__CYGWIN__)
+#include <unistd.h>
 #define OS_LINUX
 
-#define COLOR_RED "\033[31m"
-#define COLOR_GREEN "\033[32m"
-#define COLOR_BLUE "\033[34m"
-#define COLOR_RESET "\033[0m"
+const std::string COLOR_RED = "\033[31m" const std::string COLOR_GREEN = "\033[32m" const std::string COLOR_BLUE = "\033[34m" const std::string COLOR_RESET = "\033[0m"
 
 #elif (defined(__APPLE__) || defined(__OSX__) || defined(__MACOS__)) && defined(__MACH__) // To ensure that we are running on a mondern version of macOS
+#include <unistd.h>
 #define OS_MAC
 
-#define COLOR_RED "\033[31m"
-#define COLOR_GREEN "\033[32m"
-#define COLOR_BLUE "\033[34m"
-#define COLOR_RESET "\033[0m"
+const std::string COLOR_RED = "\033[31m" const std::string COLOR_GREEN = "\033[32m" const std::string COLOR_BLUE = "\033[34m" const std::string COLOR_RESET = "\033[0m"
 
-#endif
-
-#if defined(OS_WIN)
-#include <windows.h> // Use for windows
-#else
-#include <unistd.h>
 #endif
 
 enum class KeyCode
 {
     // Controls:   1        2
     NONE,
-    SAVE,  // Save     S
-    QUIT   // Esc     Esc
+    SAVE, // Save     S
+    QUIT  // Esc     Esc
 };
 
 // Get keyboard without blocking
 KeyCode GetKey()
 {
-    char ch = getchar();
-    switch (ch)
+    switch (std::cin.get())
     {
     case 's':
     case 'S':
         return KeyCode::SAVE;
-    case 27:
+    case 'q':
+    case 'Q':
         return KeyCode::QUIT;
     default:
         return KeyCode::NONE;
