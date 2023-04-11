@@ -2,6 +2,7 @@
 #define LIFECELL_H__
 #include <string>
 #include <vector>
+#include "GameSettings.h"
 
 enum class CellState
 {

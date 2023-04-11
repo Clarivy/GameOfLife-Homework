@@ -10,9 +10,13 @@ void CellGenerations::SetGeneration(const int generation)
 {
     m_generation = generation;
     if (m_generation == 0 || m_generation > MAX_GENERATIONS)
+    {
         SetAlive(CellState::DEAD);
-    else
+        m_generation = 0;
+    }
+    else {
         SetAlive(CellState::ALIVE);
+    }
 }
 
 void CellGenerations::IncrementGeneration()

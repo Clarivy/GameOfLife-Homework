@@ -2,7 +2,7 @@
 #include "GameWorld.h"
 #include "GameSettings.h"
 
-CellPointer LifeRuleBase::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+int LifeRuleBase::CountAliveNeighbors(const CellNeighbors &neighbors) const
 {
     int count_alive = 0;
     for (auto neighbor : neighbors)
@@ -12,15 +12,21 @@ CellPointer LifeRuleBase::DetermineNextState(const CellPointer current, const Ce
             ++count_alive;
         }
     }
-    if (current->IsAlive() && BASE_CELL_SURVIVE.count(count_alive))
+    return count_alive;
+}
+
+CellPointer LifeRuleBase::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+{
+    const int count_alive = CountAliveNeighbors(neighbors);
+    if (current->IsAlive() && (!BASE_CELL_SURVIVE.count(count_alive)))
     {
-        return current;
+        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_ALIVE);
     }
     if (!current->IsAlive() && BASE_CELL_BIRTH.count(count_alive))
     {
-        return std::make_shared<CellBase>(current->GetX(), current->GetY(), CellState::ALIVE);
+        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_DEAD);
     }
-    return std::make_shared<CellBase>(current->GetX(), current->GetY(), CellState::DEAD);
+    return current;
 }
 
 CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld const *game_world, const int x, const int y) const
@@ -86,29 +92,104 @@ CellPointer LifeRuleColorised::DetermineNextState(const CellPointer current, con
     }
     if (!current->IsAlive() && BASE_CELL_BIRTH.count(count_alive))
     {
-        if (count_blue > count_red)
-        {
-            return std::make_shared<CellColorised>(current->GetX(), current->GetY(), CellState::ALIVE, CellColor::BLUE);
-        }
-        else
-        {
-            return std::make_shared<CellColorised>(current->GetX(), current->GetY(), CellState::ALIVE, CellColor::RED);
-        }
+        return CreateCell(current->GetX(), current->GetY(), count_blue > count_red ? COLOR_CELL_BLUE : COLOR_CELL_RED);
     }
-    return std::make_shared<CellColorised>(current->GetX(), current->GetY(), CellState::DEAD, CellColor::NONE);
+    return CreateCell(current->GetX(), current->GetY(), COLOR_CELL_DEAD);
 }
 
 CellPointer LifeRuleColorised::CreateCell(const int x, const int y, const char type)
 {
     switch (type)
     {
-    case BASE_CELL_BLUE:
+    case COLOR_CELL_BLUE:
         return std::make_shared<CellColorised>(x, y, CellState::ALIVE, CellColor::BLUE);
-    case BASE_CELL_RED:
+    case COLOR_CELL_RED:
         return std::make_shared<CellColorised>(x, y, CellState::ALIVE, CellColor::RED);
-    case BASE_CELL_DEAD:
+    case COLOR_CELL_DEAD:
         return std::make_shared<CellColorised>(x, y, CellState::DEAD, CellColor::NONE);
     default:
         return std::make_shared<CellColorised>(x, y, CellState::DEAD, CellColor::NONE);
     }
+}
+
+CellNeighbors LifeRuleExtended::GetNeighbors(const GameWorld const *game_world, const int x, const int y) const
+{
+    CellNeighbors neightbors;
+    for (int i = -2; i <= 2; ++i)
+    {
+        for (int j = -2; j <= 2; ++j)
+        {
+            if (i == 0 && j == 0)
+                continue;
+            int next_x = x + i;
+            int next_y = y + j;
+            if (game_world->CheckPosValid(next_x, next_y))
+            {
+                neightbors.push_back(game_world->GetCell(next_x, next_y));
+            }
+        }
+    }
+    return neightbors;
+}
+
+CellPointer LifeRuleGenerations::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+{
+    const int count_alive = CountAliveNeighbors(neighbors);
+    auto current_generations = std::dynamic_pointer_cast<CellGenerations>(current);
+    if (!current_generations->IsAlive() && GENERATIONS_CELL_BIRTH.count(count_alive))
+    {
+        current_generations->SetGeneration(1);
+        return current_generations;
+    }
+    if (current_generations->IsAlive() && current_generations->GetGeneration() == 1)
+    {
+        if (!CheckKeepLive(count_alive))
+        {
+            current_generations->IncrementGeneration();
+            return current_generations;
+        }
+        return current_generations;
+    }
+    if (current_generations->IsAlive() && current_generations->GetGeneration() > 1)
+    {
+        current_generations->IncrementGeneration();
+        return current_generations;
+    }
+    return current_generations;
+}
+
+CellPointer LifeRuleGenerations::CreateCell(const int x, const int y, const char type)
+{
+    switch (type)
+    {
+    case BASE_CELL_ALIVE:
+        return std::make_shared<CellGenerations>(x, y, CellState::ALIVE, 1);
+    default:
+        return std::make_shared<CellGenerations>(x, y, CellState::DEAD, 0);
+    }
+}
+
+CellPointer LifeRuleWeighted::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+{
+    int weighted_alive = 0;
+    for (auto neighbor : neighbors)
+    {
+        if (neighbor->IsAlive())
+        {
+            weighted_alive += 1;
+            if (GetCellDistance(current, neighbor) <= 1)
+            {
+                weighted_alive += 1;
+            }
+        }
+    }
+    if (current->IsAlive() && (!WEIGHTED_CELL_SURVIVE.count(weighted_alive)))
+    {
+        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_DEAD);
+    }
+    if (!current->IsAlive() && WEIGHTED_CELL_BIRTH.count(weighted_alive))
+    {
+        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_ALIVE);
+    }
+    return current;
 }
