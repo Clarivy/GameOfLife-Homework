@@ -16,23 +16,22 @@ public:
     GameManager(const GameManager &) = delete;
 
     GameManager(const std::shared_ptr<GameWorld> &world) : m_world(world) {}
-    
+
     // Functionalities of the game
 
     /**
-     * Starts the game
+     * @brief Starts the game
      */
     void StartGame();
 
     /**
      * @brief Updates the game
-     * @return true if the game has changed, false otherwise
      */
-    bool UpdateGame();
+    void UpdateGame();
 
     /**
      * @brief Saves the current world to a file
-     * 
+     *
      * @param filename The name of the file to save to
      */
     void SaveWorld(const std::string &filename);
@@ -44,7 +43,7 @@ public:
 
     /**
      * @brief Loads a world from a .cells file
-     * 
+     *
      * The format of the file is as follows:
      * Comments start with a ! and are ignored
      * Cells are represented by a O or . (alive or dead respectively)
@@ -54,7 +53,6 @@ public:
      */
     bool LoadWorld(const std::string &filename);
 
-    
     // For interface
 
     /**
@@ -68,7 +66,7 @@ public:
     void PrintWorld();
 
     void SetGameOver(bool isGameOver) { this->isGameOver = isGameOver; }
-    
+
     int GetRoundCount() const { return m_round_count; }
     void IncrementRoundCount() { ++m_round_count; }
     bool IsGameOver() { return isGameOver; }

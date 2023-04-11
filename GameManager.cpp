@@ -30,19 +30,14 @@ void GameManager::StartGame()
             ExitGame();
             break;
         default:
-            if (UpdateGame())
-            {
-                std::cout << "Game has ended." << std::endl;
-                ExitGame();
-                return;
-            }
+            UpdateGame();
             break;
         }
         clearScreen();
     }
 }
 
-bool GameManager::UpdateGame()
+void GameManager::UpdateGame()
 {
     IncrementRoundCount();
     return m_world->Update();

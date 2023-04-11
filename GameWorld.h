@@ -31,10 +31,8 @@ public:
     /**
      * @brief Updates the world to next tick
      *
-     * @return true if the world has changed, false otherwise
      */
-
-    bool Update();
+    void Update();
 
     /**
      * @brief Get next state of a cell, determined by its neighbors
@@ -51,7 +49,7 @@ public:
     int GetHeight() const { return m_height; }
 
     CellPointer GetCell(const int x, const int y) const { return m_map[x][y]; }
-    
+
     // Get Rule Name
     const std::string GetRuleName() const { return m_rule->GetRuleName(); }
 
@@ -62,10 +60,10 @@ public:
     bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y >= 0 && y < GetWidth()); }
 
     // Setters
-    void SetCell(const int x, const int y, const char type) { 
+    void SetCell(const int x, const int y, const char type)
+    {
         m_map[x][y] = m_rule->CreateCell(x, y, type);
     }
-
 
 private:
     WorldMap2d m_map;
