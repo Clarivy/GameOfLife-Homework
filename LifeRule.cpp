@@ -29,7 +29,7 @@ CellPointer LifeRuleBase::DetermineNextState(const CellPointer current, const Ce
     return current;
 }
 
-CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld const *game_world, const int x, const int y) const
+CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld * const game_world, const int x, const int y) const
 {
     CellNeighbors neightbors;
     for (int i = -1; i <= 1; ++i)
@@ -112,7 +112,7 @@ CellPointer LifeRuleColorised::CreateCell(const int x, const int y, const char t
     }
 }
 
-CellNeighbors LifeRuleExtended::GetNeighbors(const GameWorld const *game_world, const int x, const int y) const
+CellNeighbors LifeRuleExtended::GetNeighbors(const GameWorld * const game_world, const int x, const int y) const
 {
     CellNeighbors neightbors;
     for (int i = -2; i <= 2; ++i)
@@ -163,9 +163,9 @@ CellPointer LifeRuleGenerations::CreateCell(const int x, const int y, const char
     switch (type)
     {
     case BASE_CELL_ALIVE:
-        return std::make_shared<CellGenerations>(x, y, CellState::ALIVE, 1);
+        return std::make_shared<CellGenerations>(x, y, CellState::ALIVE);
     default:
-        return std::make_shared<CellGenerations>(x, y, CellState::DEAD, 0);
+        return std::make_shared<CellGenerations>(x, y, CellState::DEAD);
     }
 }
 

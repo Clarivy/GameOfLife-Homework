@@ -24,7 +24,7 @@ public:
         const size_t height,
         const std::shared_ptr<LifeRuleBase> &rule)
         : m_map(height, WorldMapRow(width, std::make_shared<CellBase>())),
-          m_mapLast(height, WorldMapRow(width, std::make_shared<CellBase>())),
+          m_mapNext(height, WorldMapRow(width, std::make_shared<CellBase>())),
           m_rule(rule),
           m_width(width),
           m_height(height) {}
@@ -60,15 +60,15 @@ public:
     CellPointer CreateCell(const int x, const int y, const char type);
 
     // Getters
-    size_t GetWidth() const { return m_width; }
+    int GetWidth() const { return m_width; }
 
-    size_t GetHeight() const { return m_height; }
+    int GetHeight() const { return m_height; }
 
     CellPointer GetCell(const int x, const int y) const { return m_map[x][y]; }
 
     std::string GetWorldStr() const;
 
-    CellNeighbors GetNeighbors(const WorldMap2d &map, const int x, const int y) const { return m_rule->GetNeighbors(this, x, y); }
+    CellNeighbors GetNeighbors(const int x, const int y) const { return m_rule->GetNeighbors(this, x, y); }
 
     bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y <= 0 && y < GetHeight()); }
 
@@ -77,7 +77,7 @@ public:
 
 private:
     WorldMap2d m_map;
-    WorldMap2d m_mapLast;
+    WorldMap2d m_mapNext;
     std::shared_ptr<LifeRuleBase> m_rule;
     const int m_width;
     const int m_height;

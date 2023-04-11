@@ -2,6 +2,7 @@
 #define LIFECELL_H__
 #include <string>
 #include <vector>
+#include <memory>
 #include "GameSettings.h"
 
 enum class CellState
@@ -39,8 +40,8 @@ public:
     virtual std::string GetStr() { return std::string(IsAlive() ? "O" : "."); }
 
 private:
-    CellState m_state;
     int m_x, m_y;
+    CellState m_state;
 };
 
 class CellColorised : public CellBase

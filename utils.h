@@ -70,34 +70,6 @@ void printGrid(bool gridOne[gridSize + 1][gridSize + 1]);
 void determineState(bool gridOne[gridSize + 1][gridSize + 1]);
 void clearScreen(void);
 
-int main()
-{
-
-    // system( "color A" );//LGT green
-    std::cout << COLOR_GREEN;
-    clearScreen();
-    bool gridOne[gridSize + 1][gridSize + 1] = {};
-    int x, y, n;
-    std::string nc;
-    std::string start;
-    if (start == "y" || start == "Y")
-    {
-        while (true)
-        {
-            printGrid(gridOne);
-            determineState(gridOne);
-            Sleep(200);
-            clearScreen();
-        }
-    }
-    else
-    {
-        std::cout << COLOR_RESET;
-        clearScreen();
-        return 0;
-    }
-}
-
 void clearScreen(void)
 {
 // Tested and working on Ubuntu and Cygwin

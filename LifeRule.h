@@ -50,7 +50,7 @@ public:
      * @param y Col coordinate
      * @return CellNeighbors, vector of cells
      */
-    virtual CellNeighbors GetNeighbors(const GameWorld const *game_world, const int x, const int y) const;
+    virtual CellNeighbors GetNeighbors(const GameWorld * const game_world, const int x, const int y) const;
 
     /**
      * @brief Create a Cell object based on the type
@@ -104,7 +104,7 @@ class LifeRuleExtended : public LifeRuleBase
      * @param y 
      * @return CellNeighbors 
      */
-    virtual CellNeighbors GetNeighbors(const GameWorld const *game_world, const int x, const int y) const override;
+    virtual CellNeighbors GetNeighbors(const GameWorld * const game_world, const int x, const int y) const override;
 };
 
 class LifeRuleGenerations : public LifeRuleBase

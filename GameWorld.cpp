@@ -3,15 +3,20 @@
 bool GameWorld::Update()
 {
     bool isChanged = false;
-    std::swap(m_mapLast, m_map);
     for (int row = 0; row < GetHeight(); ++row)
     {
         for (int col = 0; col < GetWidth(); ++col)
         {
-            const auto neighbors = GetNeighbors(m_mapLast, row, col);
-            m_map[row][col] = GetCellNextState(m_mapLast[row][col], neighbors);
+            const auto neighbors = GetNeighbors(row, col);
+            m_mapNext[row][col] = GetCellNextState(m_map[row][col], neighbors);
+            if (m_mapNext[row][col]->IsAlive() != m_map[row][col]->IsAlive())
+            {
+                isChanged = true;
+            }
         }
     }
+    std::swap(m_mapNext, m_map);
+    return isChanged;
 }
 
 std::string GameWorld::GetWorldStr() const
