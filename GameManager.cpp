@@ -9,15 +9,13 @@ void GameManager::StartGame()
     PrintWelcomeMessage();
     // Load Map from file
     std::string filename;
-    do {
+    do
         std::cin >> filename;
-    }
     while (!LoadWorld(filename));
     while (!IsGameOver())
     {
         PrintWorld();
         std::cout << "Press any key to continue..." << std::endl;
-        getchar();
         KeyCode option = GetKey();
         switch (option)
         {
@@ -29,7 +27,6 @@ void GameManager::StartGame()
         case KeyCode::QUIT:
             ExitGame();
             break;
-
         default:
             if (!UpdateGame())
             {
@@ -44,6 +41,7 @@ void GameManager::StartGame()
 
 bool GameManager::UpdateGame()
 {
+    IncrementRoundCount();
     return m_world->Update();
 }
 
@@ -65,7 +63,6 @@ void GameManager::ExitGame()
 {
     SetGameOver(true);
     std::cout << COLOR_RESET;
-    clearScreen();
 }
 
 bool GameManager::LoadWorld(const std::string &filename)
@@ -125,5 +122,6 @@ void GameManager::PrintWelcomeMessage()
 
 void GameManager::PrintWorld()
 {
+    std::cout << "Current Round: " << GetRoundCount() << std::endl;
     std::cout << m_world->GetWorldStr();
 }

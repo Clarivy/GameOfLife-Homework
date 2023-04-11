@@ -68,11 +68,15 @@ public:
     void PrintWorld();
 
     void SetGameOver(bool isGameOver) { this->isGameOver = isGameOver; }
+    
+    int GetRoundCount() const { return m_round_count; }
+    void IncrementRoundCount() { ++m_round_count; }
     bool IsGameOver() { return isGameOver; }
 
 private:
     std::shared_ptr<GameWorld> m_world;
     bool isGameOver = false;
+    int m_round_count = 0;
 };
 
 #endif
