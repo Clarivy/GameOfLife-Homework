@@ -1,11 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <cctype>
 #include "GameManager.h"
 #include "LifeCell.h"
 #include "utils.h"
 
 void GameManager::StartGame()
 {
+    clearScreen();
     PrintWelcomeMessage();
     // Load Map from file
     std::string filename;
@@ -79,6 +81,8 @@ bool GameManager::LoadWorld(const std::string &filename)
             {
                 if (ch == '!')
                     break;
+                if (std::isspace(ch))
+                    continue;
                 m_world->SetCell(
                     current_row,
                     current_col,
@@ -96,7 +100,7 @@ bool GameManager::LoadWorld(const std::string &filename)
 
 void GameManager::PrintWelcomeMessage()
 {
-    std::cout << "                         Game of Life - Edition for CS100 Homework" << std::endl;
+    std::cout << COLOR_BLUE << "                         Game of Life - Edition for CS100 Homework" << COLOR_RESET << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
@@ -125,7 +129,7 @@ void GameManager::PrintWorld()
     std::cout << "Current Round: " << GetRoundCount() << std::endl;
     for (auto ch : m_world->GetWorldStr())
     {
-        switch(ch)
+        switch (ch)
         {
         case BASE_CELL_ALIVE:
             std::cout << COLOR_GREEN << ch << COLOR_RESET;
