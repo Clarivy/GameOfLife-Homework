@@ -26,6 +26,8 @@ GameWorld::GameWorld(const int width, const int height, const std::string &rule_
         m_rule = std::make_shared<LifeRuleColorised>();
     else if (rule_type == "Generations")
         m_rule = std::make_shared<LifeRuleGenerations>();
+    else if (rule_type == "Extended")
+        m_rule = std::make_shared<LifeRuleExtended>();
     else
         m_rule = std::make_shared<LifeRuleBase>();
     for (int i = 0; i < GetHeight(); ++i)
