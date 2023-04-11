@@ -2,6 +2,7 @@
 #define GAMEWORLD_H__
 
 #include <vector>
+#include <iostream>
 #include <memory>
 #include "LifeCell.h"
 #include "LifeRule.h"
@@ -20,14 +21,9 @@ class GameWorld
 public:
     GameWorld() = delete;
     GameWorld(
-        const size_t width,
-        const size_t height,
-        const std::shared_ptr<LifeRuleBase> &rule)
-        : m_map(height, WorldMapRow(width, std::make_shared<CellBase>())),
-          m_mapNext(height, WorldMapRow(width, std::make_shared<CellBase>())),
-          m_rule(rule),
-          m_width(width),
-          m_height(height) {}
+        const int width,
+        const int height,
+        const std::shared_ptr<LifeRuleBase> &rule);
     // Select rule based on string
     GameWorld(const int width, const int height, const std::string &rule_type);
     ~GameWorld() = default;
@@ -63,7 +59,10 @@ public:
     bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y <= 0 && y < GetHeight()); }
 
     // Setters
-    void SetCell(const int x, const int y, const char type) { m_map[x][y] = m_rule->CreateCell(x, y, type); }
+    void SetCell(const int x, const int y, const char type) { 
+        m_map[x][y] = m_rule->CreateCell(x, y, type);
+    }
+
 
 private:
     WorldMap2d m_map;

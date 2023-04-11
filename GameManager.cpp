@@ -9,12 +9,15 @@ void GameManager::StartGame()
     PrintWelcomeMessage();
     // Load Map from file
     std::string filename;
-    std::cin >> filename;
-    LoadWorld(filename);
+    do {
+        std::cin >> filename;
+    }
+    while (!LoadWorld(filename));
     while (!IsGameOver())
     {
         PrintWorld();
         std::cout << "Press any key to continue..." << std::endl;
+        getchar();
         KeyCode option = GetKey();
         switch (option)
         {
@@ -65,7 +68,7 @@ void GameManager::ExitGame()
     clearScreen();
 }
 
-void GameManager::LoadWorld(const std::string &filename)
+bool GameManager::LoadWorld(const std::string &filename)
 {
     std::ifstream file(filename);
     if (file.is_open())
@@ -75,6 +78,7 @@ void GameManager::LoadWorld(const std::string &filename)
         int current_col = 0;
         while (std::getline(file, line))
         {
+            current_row++;
             current_col = 0;
             for (auto ch : line)
             {
@@ -88,11 +92,11 @@ void GameManager::LoadWorld(const std::string &filename)
             }
         }
         file.close();
+        std::cout << "World loaded successfully" << std::endl;
+        return true;
     }
-    else
-    {
-        std::cout << "Unable to open file" << std::endl;
-    }
+    std::cout << "Unable to open file" << std::endl;
+    return false;
 }
 
 void GameManager::PrintWelcomeMessage()

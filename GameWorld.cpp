@@ -1,21 +1,39 @@
 #include "GameWorld.h"
 
-GameWorld::GameWorld(const int width, const int height, const std::string &rule_type)
-    : m_width(width), m_height(height)
+GameWorld::GameWorld(const int width, const int height, const std::shared_ptr<LifeRuleBase> &rule)
+    : m_map(height, WorldMapRow(width)),
+      m_mapNext(height, WorldMapRow(width)),
+      m_rule(rule),
+      m_width(width),
+      m_height(height)
 {
-    m_map.resize(m_height);
-    m_mapNext.resize(m_height);
+    for (int i = 0; i < GetHeight(); ++i)
+    {
+        for (int j = 0; j < GetWidth(); ++j)
+        {
+            m_map[i][j] = m_rule->CreateCell(i, j, BASE_CELL_DEAD);
+        }
+    }
+}
+
+GameWorld::GameWorld(const int width, const int height, const std::string &rule_type)
+    : m_map(height, WorldMapRow(width)),
+      m_mapNext(height, WorldMapRow(width)),
+      m_width(width),
+      m_height(height)
+{
     if (rule_type == "Colorised")
-    {
         m_rule = std::make_shared<LifeRuleColorised>();
-    }
     else if (rule_type == "Generations")
-    {
         m_rule = std::make_shared<LifeRuleGenerations>();
-    }
     else
-    {
         m_rule = std::make_shared<LifeRuleBase>();
+    for (int i = 0; i < GetHeight(); ++i)
+    {
+        for (int j = 0; j < GetWidth(); ++j)
+        {
+            m_map[i][j] = m_rule->CreateCell(i, j, BASE_CELL_DEAD);
+        }
     }
 }
 
@@ -47,7 +65,7 @@ std::string GameWorld::GetWorldStr() const
         {
             world_str += cell->GetStr();
         }
-        world_str += '\n';
+        world_str += "\n";
     }
     return world_str;
 }

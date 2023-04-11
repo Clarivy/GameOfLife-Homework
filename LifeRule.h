@@ -162,4 +162,6 @@ class LifeRuleWeighted : public LifeRuleExtended
     virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) override;
 };
 
+using LifeRulePointer = std::shared_ptr<LifeRuleBase>;
+
 #endif

@@ -22,7 +22,7 @@ class CellBase
 {
 
 public:
-    CellBase() = default;
+    CellBase() = delete;
 
     CellBase(const int x, const int y, const CellState &state) : m_x(x), m_y(y), m_state(state) {}
 

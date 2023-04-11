@@ -6,7 +6,7 @@ const int gridHeight = 20;
 
 int main()
 {
-    GameWorld world = GameWorld(gridWidth, gridHeight, "Colorised");
+    GameWorld world = GameWorld(gridWidth, gridHeight, "Base");
     GameManager gameManager(std::make_shared<GameWorld>(world));
 
     gameManager.StartGame();

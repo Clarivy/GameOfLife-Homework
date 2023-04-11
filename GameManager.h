@@ -52,7 +52,7 @@ public:
      *
      * @param filename The name of the file to load
      */
-    void LoadWorld(const std::string &filename);
+    bool LoadWorld(const std::string &filename);
 
     
     // For interface
