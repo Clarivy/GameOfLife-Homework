@@ -3,7 +3,7 @@
 
 std::string CellColorised::GetStr()
 {
-    return std::string(IsAlive() ? (GetColor() == CellColor::RED ? "R" : "B") : ".");
+    return std::string(IsAlive() ? (GetColor() == CellColor::RED ? " R " : " B ") : " . ");
 }
 
 void CellGenerations::SetGeneration(const int generation)

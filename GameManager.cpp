@@ -10,8 +10,10 @@ void GameManager::StartGame()
     // Load Map from file
     std::string filename;
     do
+    {
+        std::cout << "Please enter the world map to load: ";
         std::cin >> filename;
-    while (!LoadWorld(filename));
+    } while (!LoadWorld(filename));
     while (!IsGameOver())
     {
         PrintWorld();
@@ -28,10 +30,11 @@ void GameManager::StartGame()
             ExitGame();
             break;
         default:
-            if (!UpdateGame())
+            if (UpdateGame())
             {
                 std::cout << "Game has ended." << std::endl;
                 ExitGame();
+                return;
             }
             break;
         }
@@ -62,7 +65,7 @@ void GameManager::SaveWorld(const std::string &filename)
 void GameManager::ExitGame()
 {
     SetGameOver(true);
-    std::cout << COLOR_RESET;
+    // std::cout << COLOR_RESET;
 }
 
 bool GameManager::LoadWorld(const std::string &filename)
@@ -123,5 +126,22 @@ void GameManager::PrintWelcomeMessage()
 void GameManager::PrintWorld()
 {
     std::cout << "Current Round: " << GetRoundCount() << std::endl;
-    std::cout << m_world->GetWorldStr();
+    for (auto ch : m_world->GetWorldStr())
+    {
+        switch(ch)
+        {
+        case BASE_CELL_ALIVE:
+            std::cout << COLOR_GREEN << ch << COLOR_RESET;
+            break;
+        case COLOR_CELL_RED:
+            std::cout << COLOR_RED << ch << COLOR_RESET;
+            break;
+        case COLOR_CELL_BLUE:
+            std::cout << COLOR_BLUE << ch << COLOR_RESET;
+            break;
+        default:
+            std::cout << ch;
+            break;
+        }
+    }
 }
