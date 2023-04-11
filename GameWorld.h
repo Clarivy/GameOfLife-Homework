@@ -51,6 +51,9 @@ public:
     int GetHeight() const { return m_height; }
 
     CellPointer GetCell(const int x, const int y) const { return m_map[x][y]; }
+    
+    // Get Rule Name
+    const std::string GetRuleName() const { return m_rule->GetRuleName(); }
 
     std::string GetWorldStr() const;
 

@@ -37,7 +37,7 @@ public:
     void SetAlive(const CellState &state) { m_state = state; }
 
     // Convert to string for printing
-    virtual std::string GetStr() { return std::string(IsAlive() ? "O" : "."); }
+    virtual std::string GetStr() { return std::string(IsAlive() ? " O " : " . "); }
 
 private:
     int m_x, m_y;

@@ -108,7 +108,7 @@ void GameManager::PrintWelcomeMessage()
     std::cout << "Also known simply as life, " << std::endl;
     std::cout << "is a cellular automaton devised by the British mathematician John Horton Conway in 1970." << std::endl;
     std::cout << std::endl;
-    std::cout << "Rules" << std::endl;
+    std::cout << "Rules: " << COLOR_RED << m_world->GetRuleName() << COLOR_RESET << std::endl;
     std::cout << "The universe of the Game of life is an infinite two-dimensional orthogonal grid of square cells," << std::endl;
     std::cout << "each of which is in one of two possible states, life or dead. Every" << std::endl;
     std::cout << "cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent." << std::endl;
@@ -119,6 +119,8 @@ void GameManager::PrintWelcomeMessage()
     std::cout << "4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction." << std::endl;
     std::cout << std::endl;
     std::cout << "O - living cell" << std::endl;
+    std::cout << "R - RED cell" << std::endl;
+    std::cout << "B - BLUE cell" << std::endl;
     std::cout << ". - dead cell" << std::endl;
     std::cout << std::endl;
 }
