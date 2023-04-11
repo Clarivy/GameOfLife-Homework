@@ -56,7 +56,7 @@ public:
 
     CellNeighbors GetNeighbors(const int x, const int y) const { return m_rule->GetNeighbors(this, x, y); }
 
-    bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y <= 0 && y < GetHeight()); }
+    bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y >= 0 && y < GetWidth()); }
 
     // Setters
     void SetCell(const int x, const int y, const char type) { 
