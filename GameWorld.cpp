@@ -28,6 +28,8 @@ GameWorld::GameWorld(const int width, const int height, const std::string &rule_
         m_rule = std::make_shared<LifeRuleGenerations>();
     else if (rule_type == "Extended")
         m_rule = std::make_shared<LifeRuleExtended>();
+    else if (rule_type == "Weighted")
+        m_rule = std::make_shared<LifeRuleWeighted>();
     else if (rule_type == "Base")
         m_rule = std::make_shared<LifeRuleBase>();
     else
