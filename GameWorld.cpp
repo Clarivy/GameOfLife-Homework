@@ -53,7 +53,7 @@ bool GameWorld::Update()
         }
     }
     std::swap(m_mapNext, m_map);
-    return isChanged;
+    return !isChanged;
 }
 
 std::string GameWorld::GetWorldStr() const
