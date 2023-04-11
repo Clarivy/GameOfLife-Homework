@@ -121,14 +121,6 @@ private:
 
 class LifeRuleGenerations : public LifeRuleBase
 {
-    /**
-     * @brief Check if the cell should be kept alive
-     *
-     * @param count_alive
-     * @return true
-     * @return false
-     */
-    bool CheckKeepLive(const int count_alive) const { return (count_alive >= GENERATIONS_CELL_THRES_LOWER) && (count_alive <= GENERATIONS_CELL_THRES_UPPER); }
 
     /**
      * @brief New born cell is based on the color of its neighbors
