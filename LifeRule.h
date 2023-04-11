@@ -160,18 +160,6 @@ class LifeRuleWeighted : public LifeRuleExtended
      * @return CellPointer
      */
     virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) override;
-    
-    /**
-     * @brief Create a Cell object based on the type
-     * 
-     * The number of generation of the created cell is 1.
-     *
-     * @param x position of the cell
-     * @param y position of the cell
-     * @param type a char, indicate its type
-     * @return CellPointer, created cell
-     */
-    virtual CellPointer CreateCell(const int x, const int y, const char type) override;
 };
 
 #endif

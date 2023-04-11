@@ -1,5 +1,24 @@
 #include "GameWorld.h"
 
+GameWorld::GameWorld(const int width, const int height, const std::string &rule_type)
+    : m_width(width), m_height(height)
+{
+    m_map.resize(m_height);
+    m_mapNext.resize(m_height);
+    if (rule_type == "Colorised")
+    {
+        m_rule = std::make_shared<LifeRuleColorised>();
+    }
+    else if (rule_type == "Generations")
+    {
+        m_rule = std::make_shared<LifeRuleGenerations>();
+    }
+    else
+    {
+        m_rule = std::make_shared<LifeRuleBase>();
+    }
+}
+
 bool GameWorld::Update()
 {
     bool isChanged = false;

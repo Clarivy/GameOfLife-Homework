@@ -29,7 +29,7 @@ public:
           m_width(width),
           m_height(height) {}
     // Select rule based on string
-    GameWorld(const int width, const int height, const std::string &rule);
+    GameWorld(const int width, const int height, const std::string &rule_type);
     ~GameWorld() = default;
 
     /**
@@ -49,16 +49,6 @@ public:
      */
     CellPointer GetCellNextState(const CellPointer cell, const CellNeighbors &neighbors) const { return m_rule->DetermineNextState(cell, neighbors); }
 
-    /**
-     * @brief Create a Cell object by the type, controlled by LifeRule
-     *
-     * @param x position of the cell
-     * @param y position of the cell
-     * @param type a char, indicate its type
-     * @return CellPointer, created cell
-     */
-    CellPointer CreateCell(const int x, const int y, const char type);
-
     // Getters
     int GetWidth() const { return m_width; }
 
@@ -73,7 +63,7 @@ public:
     bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y <= 0 && y < GetHeight()); }
 
     // Setters
-    void SetCell(const int x, const int y, const char type) { m_map[x][y] = CreateCell(x, y, type); }
+    void SetCell(const int x, const int y, const char type) { m_map[x][y] = m_rule->CreateCell(x, y, type); }
 
 private:
     WorldMap2d m_map;
