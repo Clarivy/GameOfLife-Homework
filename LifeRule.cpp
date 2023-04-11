@@ -138,22 +138,23 @@ CellPointer LifeRuleGenerations::DetermineNextState(const CellPointer current, c
     auto current_generations = std::dynamic_pointer_cast<CellGenerations>(current);
     if (!current_generations->IsAlive() && GENERATIONS_CELL_BIRTH.count(count_alive))
     {
-        current_generations->SetGeneration(1);
-        return current_generations;
+        return CreateCell(current_generations->GetX(), current_generations->GetY(), BASE_CELL_ALIVE);
     }
     if (current_generations->IsAlive() && current_generations->GetGeneration() == 1)
     {
         if (!CheckKeepLive(count_alive))
         {
-            current_generations->IncrementGeneration();
-            return current_generations;
+            auto new_cell = std::make_shared<CellGenerations>(*current_generations);
+            new_cell->IncrementGeneration();
+            return new_cell;
         }
         return current_generations;
     }
     if (current_generations->IsAlive() && current_generations->GetGeneration() > 1)
     {
-        current_generations->IncrementGeneration();
-        return current_generations;
+        auto new_cell = std::make_shared<CellGenerations>(*current_generations);
+        new_cell->IncrementGeneration();
+        return new_cell;
     }
     return current_generations;
 }

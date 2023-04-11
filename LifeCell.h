@@ -48,8 +48,6 @@ class CellColorised : public CellBase
 {
 
 public:
-    CellColorised() = default;
-
     CellColorised(const int x, const int y, const CellState &state, const CellColor &color) : CellBase(x, y, state), m_color(color) {}
 
     virtual ~CellColorised() = default;
@@ -68,9 +66,9 @@ class CellGenerations : public CellBase
 {
 
 public:
-    CellGenerations() = default;
-
     CellGenerations(const int x, const int y, const CellState &state) : CellBase(x, y, state), m_generation(1) {}
+
+    CellGenerations(const int x, const int y, const CellState &state, const int generation) : CellBase(x, y, state), m_generation(generation) {}
 
     virtual ~CellGenerations() = default;
 
