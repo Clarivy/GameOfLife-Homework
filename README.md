@@ -34,13 +34,13 @@ There are many variants of the Game of Life, each with its own set of rules. Her
 
 - Extended
 
-  The base rules followed by the original Game of Life are the same as above.
-
-  However, the size of a cell's neighborhood is extended to include cells with a distance greater than one.
+  The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 * 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood). The rules are the same as the original game
 
 - Weighted
 
-  The size of a cell's neighborhood is extended to include cells with a distance greater than one. However, some neighbors might make more influence.
+  The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 * 5 square.
+
+  However, some neighbors might make more influence than others.
 
 - Generations:
 
@@ -50,15 +50,27 @@ There are many variants of the Game of Life, each with its own set of rules. Her
 
 ## Your Task
 
-Your task is to implement the Game of Life in C++ with multiple rules. We have provided you a framework to help you get started. You need to complete `LifeRuleStudent.cpp`. We have already wrote the base rule, `class LifeRuleBase`, left you to finish four variant rules above. There are four rules you need to implement: `LifeRuleColorised`, `LifeRuleExtended`, `LifeRuleWeighted`, `LifeRuleGenerations`. You only need to submit `LifeRuleStudent.cpp` to OJ. And you may not need to change other files in this project.
+The Game of Life is a very simple game, but it has been shown to be capable of producing complex and interesting patterns. In fact, there are entire websites and books dedicated to the study of the Game of Life.
+
+In this assignment, you will implement the Game of Life in C++. You will need to complete the `LifeRuleStudent.cpp` file, which contains the code for five different variants of the game:
+
+*  `LifeRuleBase`: This is the original Game of Life, contains the basic code for implementing a rule in the Game of Life. 
+* `LifeRuleColorised`: In this variant, the live cells have different colors. When a cell is born, it takes on the color value of the majority of its three neighbors.
+* `LifeRuleExtended`: In this variant, the size of a cell's neighborhood is extended to include cells with a distance greater than one.
+* `LifeRuleWeighted`: In this variant, the size of a cell's neighborhood is extended to include cells with a distance greater than one. However, some neighbors might make more influence than others.
+* `LifeRuleGenerations`: In this variant, the live cells would not die immediately when overpopulated or underpopulated. Instead, the cells 'get older' before eventually dying.
+
+We have provided you with a framework to help you get started. You can refer to [How-to-Run](#how-to-run) to play with the game. You can also refer to [How-to-Submit](#how-to-submit) to submit your code to OJ.
+
+We hope this assignment is fun and easy. Good luck!
 
 ### Description
 
-The game is often played on a infinite grid. However, to simply this project, our game has a fixed 25 \* 25 grid.
+The game is often played on a infinite grid. However, to simplify this project, our game has a fixed 25 \* 25 grid.
 
-A cell in grid can be described as threer parameters: (x, y, state), where x, y are its coordinate ranged from 0 to 24, state is either live or dead. The cells that out of the finite grid will be regarded as dead, and will never come to life.
+A cell in grid can be described as three parameters: (x, y, state), where x, y are its coordinate ranged from 0 to 24, state is either live or dead. The cells that out of the finite grid will be regarded as dead, and will never come to life.
 
-A cell is defined in `LifeCell.cpp`, called `CellBase`, with its smart pointer `CellPointer`
+A cell is defined in `LifeCell.cpp`, called `CellBase`, with its smart pointer `CellPointer`.
 
 In `LifeRuleBase`, there are five functions:
 
@@ -68,15 +80,7 @@ In `LifeRuleBase`, there are five functions:
 CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
 ```
 
-It determines the next state of a cell `current`, based on its state and the number of live `neighbors`.
-
-1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-
-2. Any live cell with two or three live neighbours lives on to the next generation.
-
-3. Any live cell with more than three live neighbours dies, as if by over-population.
-
-4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+It determines the next state of a cell `current`, based on its state and the number of live `neighbors`. The rule is as described above.
 
 - Parameters:
   current – The current state of the cell.
@@ -114,15 +118,17 @@ Since the birth of a cell is only happened when the number of its neighbors aliv
 
 You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
-#### LifeRuleExtended
+#### Extended Rule
 
-The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to include cells with a distance of 2, (i.e all 24 cells in a grid of 5 \* 5 are now its neighbor).
+The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 * 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood). The rules are the same as the original game
+
+- Please note that it should be implemented as `class LifeRuleExtended`.
 
 ##### Hint
 
 This can be done by override `GetNeighbors`.
 
-#### LifeRuleWeighted
+#### Weighted Rule
 
 The weighted life rule is a variant of the original game where the size of a cell's neighborhood is extended to include cells with a distance of 2, (i.e all 24 cells in a grid of 5 \* 5 are now its neighbor). However，some neighbors might make more influence. i.e:
 
@@ -146,11 +152,13 @@ The weights of a cell X's neighbor can be described as the following matrix:
 1 1 2 1 1
 ```
 
+- Please note that it should be implemented as `class LifeRuleWeighted`.
+
 ##### Hint
 
 This can be done by override `DetermineNextState` in `LifeRuleExtended`.
 
-#### LifeRuleGenerations
+#### Generations Rule
 
 The generations rule is a variant of the original game where the live cells would not dead immediately when overpopulated or underpopulated. Instead, the cells 'get older' before eventually dying.
 
@@ -165,6 +173,8 @@ The following are the rules:
 3.  A cell in state m ≥ 2 will advance to state m + 1 in the next generation of the pattern. In particular, a cell in state N will reset to state 0 ("die").
 
 In our game, $N = 8$.
+
+- Please note that it should be implemented as `class LifeRuleGenerations`.
 
 ##### Hint
 
@@ -192,4 +202,7 @@ Try to run with `./gof Base` and you can play with the original Game of Life.
 
 The code for this project consists of several files, some of which you will need to read and understand in order to complete the assignment, and some of which you can ignore.
 
+
+
 ## Submission
+
