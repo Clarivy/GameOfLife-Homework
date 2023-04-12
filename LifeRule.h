@@ -21,14 +21,6 @@ public:
     virtual ~LifeRuleBase() = default;
 
     /**
-     * @brief Count the number of alive neighbors
-     *
-     * @param neighbors
-     * @return int
-     */
-    int CountAliveNeighbors(const CellNeighbors &neighbors) const;
-
-    /**
      * @brief Determines the next state of a cell based on the current state and the number of live neighbors
      *
      * 1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -37,7 +29,7 @@ public:
      * 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
      *
      * @param current The current state of the cell
-     * @param neighborse All the neighbors of the cell
+     * @param neighbors All the neighbors of the cell
      * @return The next state of the cell
      */
     virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors);
@@ -45,12 +37,20 @@ public:
     /**
      * @brief Get neighbors from map
      *
-     * @param map The current map
+     * @param game_world Current world, 
      * @param x Row coordinate
      * @param y Col coordinate
      * @return CellNeighbors, vector of cells
      */
     virtual CellNeighbors GetNeighbors(const GameWorld *const game_world, const int x, const int y) const;
+
+    /**
+     * @brief Count the number of alive neighbors
+     *
+     * @param neighbors
+     * @return int
+     */
+    virtual int CountAliveNeighbors(const CellNeighbors &neighbors) const;
 
     /**
      * @brief Create a Cell object based on the type
