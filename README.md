@@ -184,8 +184,16 @@ You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
 #### Compile the project
 
+In Windows, you can run with:
+
 ```bash
-g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
+g++ -Wall -Wextra -o gof.exe GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
+```
+
+In Linux or MacOS, you can run with:
+
+```bash
+g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp 
 ```
 
 #### Run the project
@@ -198,11 +206,13 @@ The program takes one argument, which is the rule you want to use. The rule can 
 
 Try to run with `./gof Base` and you can play with the original Game of Life.
 
+You can select a map from `maps/` and play with it. We have provided different maps for different rules.
+
+For example, you can run with `./gof Colorised`, then load the map 'maps/Colorised.cells'.
+
 ### File Structure
 
 The code for this project consists of several files, some of which you will need to read and understand in order to complete the assignment, and some of which you can ignore.
-
-
 
 ## Submission
 
