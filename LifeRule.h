@@ -63,7 +63,7 @@ public:
      * @param type a char, indicate its type
      * @return CellPointer, created cell
      */
-    virtual CellPointer CreateCell(const int x, const int y, const char type);
+    virtual CellPointer CreateCell(const int x, const int y, const char type) const;
 
     /**
      * @brief Get the Rule Name object
@@ -95,7 +95,7 @@ class LifeRuleColorised : public LifeRuleBase
      * @param type a char, indicate its type
      * @return CellPointer, created cell
      */
-    virtual CellPointer CreateCell(const int x, const int y, const char type) override;
+    virtual CellPointer CreateCell(const int x, const int y, const char type) const override;
 
     virtual const std::string GetRuleName() const { return "Colorised"; }
 };
@@ -141,7 +141,7 @@ class LifeRuleGenerations : public LifeRuleBase
      * @param type a char, indicate its type
      * @return CellPointer, created cell
      */
-    virtual CellPointer CreateCell(const int x, const int y, const char type) override;
+    virtual CellPointer CreateCell(const int x, const int y, const char type) const override;
 
     virtual const std::string GetRuleName() const { return "Generations"; }
 };

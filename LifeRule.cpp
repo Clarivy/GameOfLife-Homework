@@ -50,7 +50,7 @@ CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, cons
     return neightbors;
 }
 
-CellPointer LifeRuleBase::CreateCell(const int x, const int y, const char type)
+CellPointer LifeRuleBase::CreateCell(const int x, const int y, const char type) const
 {
     switch (std::toupper(type))
     {
@@ -98,7 +98,7 @@ CellPointer LifeRuleColorised::DetermineNextState(const CellPointer current, con
     return CreateCell(current->GetX(), current->GetY(), COLOR_CELL_DEAD);
 }
 
-CellPointer LifeRuleColorised::CreateCell(const int x, const int y, const char type)
+CellPointer LifeRuleColorised::CreateCell(const int x, const int y, const char type) const
 {
     switch (std::toupper(type))
     {
@@ -159,7 +159,7 @@ CellPointer LifeRuleGenerations::DetermineNextState(const CellPointer current, c
     return current_generations;
 }
 
-CellPointer LifeRuleGenerations::CreateCell(const int x, const int y, const char type)
+CellPointer LifeRuleGenerations::CreateCell(const int x, const int y, const char type) const
 {
     switch (std::toupper(type))
     {
@@ -178,7 +178,7 @@ CellPointer LifeRuleWeighted::DetermineNextState(const CellPointer current, cons
         if (neighbor->IsAlive())
         {
             weighted_alive += 1;
-            if (GetCellDistance(current, neighbor) <= 1)
+            if (GetCellDistance(current, neighbor) <= 2)
             {
                 weighted_alive += 1;
             }
