@@ -34,11 +34,11 @@ There are many variants of the Game of Life, each with its own set of rules. Her
 
 - Extended
 
-  The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 * 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood). The rules are the same as the original game
+  The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 \* 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood). The rules are the same as the original game
 
 - Weighted
 
-  The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 * 5 square.
+  The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 \* 5 square.
 
   However, some neighbors might make more influence than others.
 
@@ -52,13 +52,13 @@ There are many variants of the Game of Life, each with its own set of rules. Her
 
 The Game of Life is a very simple game, but it has been shown to be capable of producing complex and interesting patterns. In fact, there are entire websites and books dedicated to the study of the Game of Life.
 
-In this assignment, you will implement the Game of Life in C++. You will need to complete the `LifeRuleStudent.cpp` file, which contains the code for five different variants of the game:
+In this assignment, you will implement the Game of Life in C++. You will need to complete the `LifeRuleStudent.cpp` file, which contains the code for the original rule and four different variants of the game:
 
-*  `LifeRuleBase`: This is the original Game of Life, contains the basic code for implementing a rule in the Game of Life. 
-* `LifeRuleColorised`: In this variant, the live cells have different colors. When a cell is born, it takes on the color value of the majority of its three neighbors.
-* `LifeRuleExtended`: In this variant, the size of a cell's neighborhood is extended to include cells with a distance greater than one.
-* `LifeRuleWeighted`: In this variant, the size of a cell's neighborhood is extended to include cells with a distance greater than one. However, some neighbors might make more influence than others.
-* `LifeRuleGenerations`: In this variant, the live cells would not die immediately when overpopulated or underpopulated. Instead, the cells 'get older' before eventually dying.
+- `LifeRuleBase`: We have provided for you. This is the original Game of Life, contains the basic code for implementing a rule in the Game of Life.
+- `LifeRuleColorised`: *You need to complete it*. In this variant, the live cells have different colors. When a cell is born, it takes on the color value of the majority of its three neighbors.
+- `LifeRuleExtended`: *You need to complete it*. In this variant, the size of a cell's neighborhood is extended to include cells with a distance greater than one.
+- `LifeRuleWeighted`: *You need to complete it*. In this variant, the size of a cell's neighborhood is extended to include cells with a distance greater than one. However, some neighbors might make more influence than others.
+- `LifeRuleGenerations`: *You need to complete it*. In this variant, the live cells would not die immediately when overpopulated or underpopulated. Instead, the cells 'get older' before eventually dying.
 
 We have provided you with a framework to help you get started. You can refer to [How-to-Run](#how-to-run) to play with the game. You can also refer to [How-to-Submit](#how-to-submit) to submit your code to OJ.
 
@@ -120,7 +120,7 @@ You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
 #### Extended Rule
 
-The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 * 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood). The rules are the same as the original game
+The extended rule is a variant of the original game where the size of a cell's neighborhood is extended to a 5 \* 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood). The rules are the same as the original game
 
 - Please note that it should be implemented as `class LifeRuleExtended`.
 
@@ -193,7 +193,7 @@ g++ -Wall -Wextra -o gof.exe GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp
 In Linux or MacOS, you can run with:
 
 ```bash
-g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp 
+g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
 ```
 
 #### Run the project
@@ -217,4 +217,3 @@ You can find more maps at the [wiki](https://conwaylife.com/wiki/) and play with
 The code for this project consists of several files, some of which you will need to read and understand in order to complete the assignment, and some of which you can ignore.
 
 ## Submission
-
