@@ -1,3 +1,6 @@
+#include <algorithm>
+#include <cctype>
+#include <string>
 #include "GameWorld.h"
 
 GameWorld::GameWorld(const int width, const int height, const std::shared_ptr<LifeRuleBase> &rule)
@@ -16,21 +19,24 @@ GameWorld::GameWorld(const int width, const int height, const std::shared_ptr<Li
     }
 }
 
-GameWorld::GameWorld(const int width, const int height, const std::string &rule_type)
+GameWorld::GameWorld(const int width, const int height, std::string rule_type)
     : m_map(height, WorldMapRow(width)),
       m_mapNext(height, WorldMapRow(width)),
       m_width(width),
       m_height(height)
 {
-    if (rule_type == "Colorised")
+    // Convert rule_type to lower case
+    std::transform(rule_type.cbegin(), rule_type.cend(), rule_type.begin(), [](unsigned char c) { return std::tolower(c); });
+
+    if (rule_type == "colorised")
         m_rule = std::make_shared<LifeRuleColorised>();
-    else if (rule_type == "Generations")
+    else if (rule_type == "generations")
         m_rule = std::make_shared<LifeRuleGenerations>();
-    else if (rule_type == "Extended")
+    else if (rule_type == "extended")
         m_rule = std::make_shared<LifeRuleExtended>();
-    else if (rule_type == "Weighted")
+    else if (rule_type == "weighted")
         m_rule = std::make_shared<LifeRuleWeighted>();
-    else if (rule_type == "Base")
+    else if (rule_type == "base")
         m_rule = std::make_shared<LifeRuleBase>();
     else
         throw std::invalid_argument("Invalid rule type");

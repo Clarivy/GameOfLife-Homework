@@ -25,7 +25,7 @@ public:
         const int height,
         const std::shared_ptr<LifeRuleBase> &rule);
     // Select rule based on string
-    GameWorld(const int width, const int height, const std::string &rule_type);
+    GameWorld(const int width, const int height, std::string rule_type);
     ~GameWorld() = default;
 
     /**
