@@ -140,7 +140,7 @@ The weighted life rule is a variant of the original game where the size of a cel
 
 4. Any live cell with weight more than 6 live neighbours dies, as if by over-population.
 
-5. Any dead cell with exactly 6 live neighbours becomes a live cell, as if by reproduction.
+5. Any dead cell with weight of 5, 6 live neighbours becomes a live cell, as if by reproduction.
 
 The weights of a cell X's neighbor can be described as the following matrix:
 

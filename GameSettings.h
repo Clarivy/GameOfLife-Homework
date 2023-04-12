@@ -16,13 +16,11 @@ const std::set<int> BASE_CELL_BIRTH_CONDITION = {3};
 #define COLOR_CELL_RED 'R'
 #define COLOR_CELL_DEAD '.'
 
-
 // For generations rule
 #define MAX_GENERATIONS 8
 
 // For weightened rule state
 const std::set<int> WEIGHTED_CELL_SURVIVE_CONDITION = {4, 5, 6};
-const std::set<int> WEIGHTED_CELL_BIRTH_CONDITION = {6};
-
+const std::set<int> WEIGHTED_CELL_BIRTH_CONDITION = {5, 6};
 
 #endif
