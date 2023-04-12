@@ -14,7 +14,7 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 - Any live cell with more than three live neighbours dies, as if by overpopulation.
 - Any dead cell with exactly three live neighbours comes to life.
 
-![https://www.researchgate.net/publication/274743186_Spatial_Dynamic_Models_for_Inclusive_Cities_a_Brief_Concept_of_Cellular_Automata_CA_and_Agent-Based_Model_ABM](./pics/rule.jpg)
+![Moreno, Niandry. "A vector-based geographical cellular automata model to mitigate scale sensitivity and to allow objects' geometric transformation." (2008).](./pics/rule.png)
 
 The Game of Life has been studied extensively, and many interesting patterns have been discovered. Some of these patterns are stable, meaning that they will continue to exist indefinitely. Others are unstable, meaning that they will eventually die out. Still others are periodic, meaning that they will repeat themselves after a certain number of steps. Here are some basic patterns:
 
