@@ -75,7 +75,6 @@ bool GameManager::LoadWorld(const std::string &filename)
         int current_col = 0;
         while (std::getline(file, line))
         {
-            current_row++;
             current_col = 0;
             for (auto ch : line)
             {
@@ -89,6 +88,7 @@ bool GameManager::LoadWorld(const std::string &filename)
                     ch);
                 current_col++;
             }
+            current_row++;
         }
         file.close();
         std::cout << "World loaded successfully" << std::endl;
