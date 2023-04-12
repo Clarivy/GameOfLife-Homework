@@ -204,11 +204,13 @@ g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp Lif
 
 The program takes one argument, which is the rule you want to use. The rule can be `Base`, `Colorised`, `Extended`, `Weighted`, `Generations`.
 
-Try to run with `./gof Base` and you can play with the original Game of Life.
+Try to run with `./gof base` and you can play with the original Game of Life.
 
-You can select a map from `maps/` and play with it. We have provided different maps for different rules.
+You can select a map from `map/` and play with it. We have provided different maps for different rules.
 
-For example, you can run with `./gof Colorised`, then load the map 'maps/Colorised.cells'.
+For example, you can run with `./gof colorised`, then load the map 'map/colorised.cells'.
+
+You can find more maps at the [wiki](https://conwaylife.com/wiki/) and play with them at [golly](https://golly.sourceforge.net/webapp/golly.html).
 
 ### File Structure
 
