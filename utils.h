@@ -55,13 +55,19 @@ inline std::ostream &COLOR_RESET(std::ostream &s)
 #include <unistd.h>
 #define OS_LINUX
 
-const std::string COLOR_RED = "\033[31m" const std::string COLOR_GREEN = "\033[32m" const std::string COLOR_BLUE = "\033[34m" const std::string COLOR_RESET = "\033[0m"
+const std::string COLOR_RED = "\033[31m";
+const std::string COLOR_GREEN = "\033[32m";
+const std::string COLOR_BLUE = "\033[34m";
+const std::string COLOR_RESET = "\033[0m";
 
 #elif (defined(__APPLE__) || defined(__OSX__) || defined(__MACOS__)) && defined(__MACH__) // To ensure that we are running on a mondern version of macOS
 #include <unistd.h>
 #define OS_MAC
 
-const std::string COLOR_RED = "\033[31m" const std::string COLOR_GREEN = "\033[32m" const std::string COLOR_BLUE = "\033[34m" const std::string COLOR_RESET = "\033[0m"
+const std::string COLOR_RED = "\033[31m";
+const std::string COLOR_GREEN = "\033[32m";
+const std::string COLOR_BLUE = "\033[34m";
+const std::string COLOR_RESET = "\033[0m";
 
 #endif
 
