@@ -4,7 +4,7 @@
 
 [**The Game of Life**](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) is a simple but profound game, created by one of the world greatest mathematician John Horton Conway. This game does not require player participation because all evolutionary processes are determined by the initial state and will proceed spontaneously. A common way to play with the Game of Life is to give it an initial state and watch how it evolves.
 
-![https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life](D:/AA-Study/2023-Spring/CS100_TA/Game of Life/GameOfLife-Homework/pics/demo.gif)
+![https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life](pics/demo.gif)
 
 ## Rules
 
@@ -12,9 +12,9 @@ The universe of the Game of Life can simply considered as an infinite sheet of g
 
 - **Underpopulation:** Any living cell with fewer than two living neighbors (the surrounding 8 cells) dies.
 
-- **Survive: **Any living cell with two or three living neighbors lives on to the next generation.
+- **Survive:** Any living cell with two or three living neighbors lives on to the next generation.
 - **Overpopulation:** Any living cell with more than three living neighbors dies.
-- **Reborn: **Any dead cell with exactly 3 living neighbors comes to life.
+- **Reborn:** Any dead cell with exactly 3 living neighbors comes to life.
 
 ![Moreno, Niandry. "A vector-based geographical cellular automata model to mitigate scale sensitivity and to allow objects' geometric transformation." (D:/AA-Study/2023-Spring/CS100_TA/Game of Life/GameOfLife-Homework/pics/rule.png).](./pics/rule.png)
 
@@ -28,15 +28,19 @@ There are many [variants of the Game of Life](https://en.wikipedia.org/wiki/Conw
 
 - **Extended**
 
-  It follows the basic rules as described above with one change: the size of a cell's neighborhood is extended to $k(k > 1)$. Consider any square with size $2k+1$, the centering cell will have all other cells in this square as its neighbors.
+  It follows the basic rules as described above with one change: the size of a cell's neighborhood is extended. Consider any square with size $2k+1$, the centering cell will have all other cells in this square as its neighbors. For example, extended to a 5 \* 5 square, (i.e all 24 cells around a cell are now its neighbor, the cell itself is not included in its neighborhood).
+
+  ![https://conwaylife.com/wiki/Moore_neighbourhood](pics/extended.png)
+
+  The formal definition will be described later. More on [wiki](https://conwaylife.com/wiki/Gallery_of_neighbourhoods/Images).
 
 - **Weighted**
 
-  It follows the **extended** rules as described above with one  addition: the neighbors are weighted, meaning that some neighbors might have more influence on it.
+  It follows the **extended** rules as described above with one addition: the neighbors are weighted, meaning that some neighbors might have more influence on it. More on [wiki](https://conwaylife.com/forums/viewtopic.php?f=11&t=935)
 
 - **Generations:**
 
-  It follows the **extended** rules as described above with one change: the living cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'gets older' before the final death.
+  It follows the **original** rules as described above with one change: the living cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'gets older' before the final death.
 
   The formal definition will be described later. More on [wiki](https://conwaylife.com/wiki/Generations).
 
@@ -44,30 +48,46 @@ There are many [variants of the Game of Life](https://en.wikipedia.org/wiki/Conw
 
 The Game of Life has been studied extensively, and many interesting patterns have been discovered. Before starting your work, we strongly recommend you to first try this game out! You can play with it at [golly](https://golly.sourceforge.net/webapp/golly.html), and there are many amazing patterns you can find online. Here is a video in [YouTube](https://www.youtube.com/watch?v=C2vgICfQawE) and [BiliBili](https://www.bilibili.com/video/BV1PE411d7aR) about the Game of Life for your reference.
 
-You will notice that some of the patterns are stable, meaning that they will continue to exist indefinitely, and some of them are even periodic, meaning that they will repeat themselves after a certain number of steps. Other patterns are unstable, meaning that they will eventually die out.  Here are some basic patterns:
+You will notice that some of the patterns are stable, meaning that they will continue to exist indefinitely, and some of them are even periodic, meaning that they will repeat themselves after a certain number of steps. Other patterns are unstable, meaning that they will eventually die out. Here are some basic patterns:
 
-![http://pi.math.cornell.edu/~lipa/mec/lesson6.html](D:/AA-Study/2023-Spring/CS100_TA/Game of Life/GameOfLife-Homework/pics/patterns.png)
+<img src="pics/patterns.png" alt="http://pi.math.cornell.edu/~lipa/mec/lesson6.html" style="height:300px;" /> <img src="pics/patterns2.png" alt="http://pi.math.cornell.edu/~lipa/mec/lesson6.html" style="height:300px;" />
 
 ## Your Task
 
-Your task is to complete the implementation of our C++ version of the Game of Life with multiple rules. We have provided you a framework to help you get started. You need to implement all the functions in `LifeRuleStudent.cpp`. 
+The Game of Life is a very simple game, but it has been shown to be capable of producing complex and interesting patterns. In fact, there are entire websites and books dedicated to the study of the Game of Life.
 
-We have already wrote the base rule, `class LifeRuleBase`, left you to finish four variant rules listed above: `LifeRuleColorised`, `LifeRuleExtended`, `LifeRuleWeighted`, `LifeRuleGenerations`.  
+Your task is to complete the implementation of our C++ version of the Game of Life with multiple rules. We have provided you a framework to help you get started. You need to implement all the functions in `LifeRuleStudent.cpp`.
 
-There is no need for you to change other files. And since you can only submit `LifeRuleStudent.cpp` to OJ, any other change will not be considered.
+We have provided you with a framework to help you get started. You can refer to [How-to-Run](#how-to-run) to play with the game.
+
+Rules should be implemented as classes. You need to think about how to design the class structure, and the inheritance relationship between different rules.
+
+We have already wrote the base rule, `class LifeRuleBase`, left you to finish four variant rules listed above: `LifeRuleColorised`, `LifeRuleExtended`, `LifeRuleWeighted`, `LifeRuleGenerations`.
+
+Here is the description:
+
+- `LifeRuleBase`: We have provided for you. This is the original Game of Life, contains the basic code for implementing a rule in the Game of Life.
+- `LifeRuleColorised`: **You need to complete it**. In this variant, the live cells have different colors.
+- `LifeRuleExtended`: _You need to complete it_. In this variant, the size of a cell's neighborhood is extended.
+- `LifeRuleWeighted`: **You need to complete it**. In this variant, neighbors are weighted.
+- `LifeRuleGenerations`: **You need to complete it**. In this variant, the cells 'get older' before eventually dying.
+
+To make sure the homework compile, every rule should be a subclass of `LifeRuleBase`. There is no need for you to change other files. And since you can only submit `LifeRuleStudent.cpp` to OJ, any other change will not be considered.
 
 ### Framework
 
 In real life, the game is often played on infinite number of grids. However, to simplify this homework, our game has fixed 25 \* 25 grids. The cells out of the grids will always be regarded as dead, and will never come to life.
 
-For the original rules, a cell in grid can be described by three parameters: **x**, **y** and **state**: 
+For the original rules, a cell in grid can be described by three parameters: **x**, **y** and **state**:
 
 - $(x, y)$ represents the coordinate of this cell. $(x, y \in Z^+, 0 \leq x, y \leq 24)$
-- State describes whether the cell is alive or dead. 
+- State describes whether the cell is alive or dead.
 
 A cell is defined in `LifeCell.cpp`, called `CellBase`, with a smart pointer `CellPointer`.
 
-In `class LifeRuleBase`, there are five functions. Here are the detailed explanation for two of them (for the rest of the functions, you can check the comments in files):
+A class of any rules have three key functions `DetermineNextState`, `GetNeighbors` and `CreateCell`. You may want to reuse some of those while some of them rewrote.
+
+Here is the definition of the three functions:
 
 #### DetermineNextState
 
@@ -77,12 +97,14 @@ CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &n
 
 This function will determine the next state of a cell, based on its current state and the number of lived `neighbors`. It applies the original rules. (对吗？)
 
-- ***Parameters:***
+- **_Parameters:_**
+
   `current`: A `CellPointer`, indicating the current state of a cell.
+
   `neighbors`: a vector of `CellPointer`, containing all the neighbors of the cell we working on. We need to count the number of living cells in neighbors to determine the next state.
 
+- **_Returns:_**
 
-- ***Returns:***
   A `CellPointer`, indicating the next state of a cell.
 
 #### GetNeighbors
@@ -93,20 +115,40 @@ CellNeighbors GetNeighbors(const GameWorld *const game_world, const int x, const
 
 It returns a vector containing all of the neighbors of the cell at $(x, y)$. For example, （？）
 
-- ***Parameters:***
+- **_Parameters:_**
+
   `game_world`: Current world we are working in (You can imagine this as the grid paper we play the game on).
+
   `x`,` y`: Coordinate of the cell.
 
-- ***Returns:***
+- **_Returns:_**
+
   All neighbors of a cell at $(x, y)$.
+
+  #### GetNeighbors
+
+```cpp
+CellPointer CreateCell(const int x, const int y, const char type) const
+```
+
+It create a cell based on the `type` with position of $(x, y)$.
+
+- **_Parameters:_**
+
+  `x`,` y`: Coordinate of the cell.
+
+  `type`: In base rule, it is either `BASE_CELL_ALIVE` or `BASE_CELL_DEAD` representing alive or dead, respectively. You can refer to [Map-Representations](#map-representations) for more details.
+
+- **_Returns:_**
+  A new cell with position of $(x, y)$ and state of `type`.
 
 ### Rules Implementation Guide
 
-#### LifeRuleColorised
+#### Colorised Rule
 
-The colorised rule is a variant of the original game. Now the living cells are all colored with one of the two different colors, red and blue. When a cell is born, its color will be decided by the major color of its three lived neighbors. 
+The colorised rule is a variant of the original game. Now the living cells are all colored with one of the two different colors, red and blue. When a cell is born, its color will be decided by the major color of its three lived neighbors.
 
-Since the birth of a cell only happens when it has 3 living neighbors, and we only have 2 colors here, you don't need to worry about equality. 
+Since the birth of a cell only happens when it has 3 living neighbors, and we only have 2 colors here, you don't need to worry about equality.
 
 - Please note that it should be implemented as `class LifeRuleColorised`.
 
@@ -114,8 +156,7 @@ Since the birth of a cell only happens when it has 3 living neighbors, and we on
 
 - You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
-
-#### LifeRuleExtended
+#### Extended Rule
 
 The extended rule is a variant of the original game, where a cell's neighborhood is extended to 2. (i.e. All other 24 cells in a square of size $5 * 5$ are now neighbors of the centering cell).
 
@@ -125,26 +166,25 @@ The extended rule is a variant of the original game, where a cell's neighborhood
 
 - This can be done by overriding `GetNeighbors`.
 
-
-#### LifeRuleWeighted
+#### Weighted Rule
 
 The weighted life rule is a variant of our extended game. Now the living cells are all weighted, meaning that some neighbors might have greater influences. So in detail, what you should do is:
 
 1. For a living cell, calculate the sum of the weights of its neighbors. We call this "total influence".
 2. **Underpopulation:** Any cells with a total influence of less than 4 dies.
-3. **Survive: **Any living cell with $4 \leq $total influence $\leq 6 $ survives.
+3. **Survive:** Any living cell with $4 \leq $total influence $\leq 6 $ survives.
 4. **Overpopulation:** Any live cell with weight more than 6 living neighbours dies.
-5. **Reborn: **Any dead cell with exactly 6 living neighbors becomes alive.
+5. **Reborn:** Any dead cell with exactly 6 living neighbors becomes alive.
 
 The neighborhood of a cell $x$ can be now represented as the following matrix:
 
-$$ \left\{\begin{matrix}   1 & 1 & 2& 1& 1\\  1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix}  \right\}\tag{2} $$
+$$ \left\{\begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix} \right\}\tag{2} $$
 
 ##### Hint
 
 This can be done by overriding `DetermineNextState` in `LifeRuleExtended`.
 
-#### LifeRuleGenerations
+#### Generations Rule
 
 The generations rule is a variant of the original game. Now the live cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'gets older' before the final death.
 
@@ -166,9 +206,21 @@ In our game, $N = 8$.
 
 You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
+### Map Representations
+
+#### Map File Format
+
 ### How to run
 
 #### Compile the project
+
+In Windows, you can run with:
+
+```bash
+g++ -Wall -Wextra -o gof.exe GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
+```
+
+In Linux or MacOS, you can run with:
 
 ```bash
 g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
@@ -180,14 +232,20 @@ g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp Lif
 ./gof <rule>
 ```
 
-The program takes one argument: the rule you want to use. The rule can be `Base`, `Colorised`, `Extended`, `Weighted`, `Generations`.
+The program takes one argument, which is the rule you want to use. The rule can be `Base`, `Colorised`, `Extended`, `Weighted`, `Generations`.
 
-Try to run with `./gof Base` and you can play with the original Game of Life.
+Try to run with `./gof base` and you can play with the original Game of Life.
+
+You can select a map from `map/` and play with it. We have provided different maps for different rules.
+
+For example, you can run with `./gof colorised`, then load the map 'map/colorised.cells'.
+
+You can find more maps at the [wiki](https://conwaylife.com/wiki/) and play with them at [golly](https://golly.sourceforge.net/webapp/golly.html).
 
 ### File Structure
 
-This problem contains several files. You may need to read and understand some of them in order to complete the assignment. There are also some files that you can simply ignore. You don't need to understand every file to do this homework.
+This problem contains several files. You may need to read and understand some of them in order to complete the assignment. There are also some files that you can simply ignore. **You don't need to understand every line to finish this homework**.
 
 ## Submission
 
-You only need to submit `LifeRuleStudent.cpp` to OJ. 
+You only need to submit `LifeRuleStudent.cpp` to OJ.
