@@ -178,7 +178,7 @@ The weighted life rule is a variant of our extended game. Now the living cells a
 
 The neighborhood of a cell $x$ can be now represented as the following matrix:
 
-$$ \left\{\begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix} \right\}\tag{2} $$
+$$ \begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix}\tag{2} $$
 
 ##### Hint
 
