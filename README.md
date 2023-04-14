@@ -92,20 +92,16 @@ Here is the definition of the three functions:
 #### DetermineNextState
 
 ```cpp
-CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+void DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) const
 ```
 
 This function will determine the next state of a cell, based on its current state and the number of lived `neighbors`. It applies the original rules. (对吗？)
 
 - **_Parameters:_**
 
-  `current`: A `CellPointer`, indicating the current state of a cell.
+  `current`: A `CellPointer`, pointing to a cell to be updated
 
-  `neighbors`: a vector of `CellPointer`, containing all the neighbors of the cell we working on. We need to count the number of living cells in neighbors to determine the next state.
-
-- **_Returns:_**
-
-  A `CellPointer`, indicating the next state of a cell.
+  `neighbors`: a vector of `CellPointer`, containing all the neighbors of the cell we working on. You need to count the number of living cells in neighbors to determine the next state.
 
 #### GetNeighbors
 

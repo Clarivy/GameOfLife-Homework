@@ -21,16 +21,15 @@ public:
     virtual ~LifeRuleBase() = default;
 
     /**
-     * @brief Determines the next state of a cell based on the current state and the number of live neighbors
+     * @brief Determines the next state of a cell `current`, based on the current state and the number of live neighbors 
      *
      * 1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
      * 2. Any live cell with two or three live neighbours lives on to the next generation.
      * 3. Any live cell with more than three live neighbours dies, as if by over-population.
      * 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
      *
-     * @param current The current state of the cell
-     * @param neighbors All the neighbors of the cell
-     * @return The next state of the cell
+     * @param current A pointor to a cell to be updated
+     * @param neighbors a vector of `CellPointer`, containing all the neighbors of the cell we working on. You need to count the number of living cells in neighbors to determine the next state.
      */
     virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors);
 
@@ -65,9 +64,8 @@ class LifeRuleColorised : public LifeRuleBase
     /**
      * @brief New born cell is based on the color of its neighbors
      *
-     * @param current
-     * @param neighbors
-     * @return CellPointer
+     * @param current A pointor to a cell to be updated
+     * @param neighbors All the neighbors of the cell
      */
     virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors) override;
 
@@ -96,13 +94,6 @@ private:
 class LifeRuleGenerations : public LifeRuleBase
 {
 
-    /**
-     * @brief New born cell is based on the color of its neighbors
-     *
-     * @param current
-     * @param neighbors
-     * @return CellPointer
-     */
     virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors) override;
 
     virtual const std::string GetRuleName() const { return "Generations"; }
@@ -120,13 +111,6 @@ class LifeRuleWeighted : public LifeRuleExtended
      */
     int GetCellDistance(const CellPointer cell_x, const CellPointer cell_y) const { return std::abs(cell_x->GetX() - cell_y->GetX()) + std::abs(cell_x->GetY() - cell_y->GetY()); }
 
-    /**
-     * @brief New born cell is based on the color of its neighbors
-     *
-     * @param current
-     * @param neighbors
-     * @return CellPointer
-     */
     virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors) override;
 
     virtual const std::string GetRuleName() const { return "Weighted"; }
