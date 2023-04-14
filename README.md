@@ -121,8 +121,6 @@ It returns a vector containing all of the neighbors of the cell at $(x, y)$. For
 
   All neighbors of a cell at $(x, y)$.
 
-  #### GetNeighbors
-
 ### Rules Implementation Guide
 
 #### Colorised Rule
@@ -215,9 +213,12 @@ We provide some example files in the `map` folder, you can refer to [How-to-Run]
 
 You don't need to load the map by yourself, our framework have already implemented the map loading function. In case you want to edit the map file, here is a brief introduction of the file format:
 
-> Comments start with a ! and are ignored
-> Cells are represented by a O or . (alive or dead respectively)
-> R and B represent red and blue cells in colorised rule (it is ignored in other rules, and not supported by golly).
+> ##### This part can be ignored if you don't want to edit the map file.
+> ###### Comments start with a '!' and are ignored
+>
+> ###### Cells are represented by a 'O' or '.' (alive or dead respectively)
+>
+> ###### 'R' and 'B' represent red and blue cells in colorised rule (it is ignored in other rules, and not supported officially by golly).
 
 
 ### How to run
