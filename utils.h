@@ -71,6 +71,11 @@ const std::string COLOR_RESET = "\033[0m";
 
 #endif
 
+void PrintWhite(const std::string &str) { std::cout << str; }
+void PrintRed(const std::string &str) { std::cout << COLOR_RED << str << COLOR_RESET; }
+void PrintGreen(const std::string &str) { std::cout << COLOR_GREEN << str << COLOR_RESET; }
+void PrintBlue(const std::string &str) { std::cout << COLOR_BLUE << str << COLOR_RESET; }
+
 enum class KeyCode
 {
     // Controls:   1        2

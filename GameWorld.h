@@ -35,13 +35,12 @@ public:
     void Update();
 
     /**
-     * @brief Get next state of a cell, determined by its neighbors
+     * @brief Update a cell to next state, determined by its neighbors
      *
-     * @param cell a cell
+     * @param cell a cell to update
      * @param neighbors its neighbors
-     * @return CellPointer,
      */
-    CellPointer GetCellNextState(const CellPointer cell, const CellNeighbors &neighbors) const { return m_rule->DetermineNextState(cell, neighbors); }
+    void CellUpdate(const CellPointer &cell, const CellNeighbors &neighbors) const { m_rule->DetermineNextState(cell, neighbors); }
 
     // Getters
     int GetWidth() const { return m_width; }
@@ -55,14 +54,17 @@ public:
 
     std::string GetWorldStr() const;
 
+    const WorldMap2d &GetWorldMap() const { return m_map; }
+
+
     CellNeighbors GetNeighbors(const int x, const int y) const { return m_rule->GetNeighbors(this, x, y); }
 
     bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y >= 0 && y < GetWidth()); }
 
     // Setters
-    void SetCell(const int x, const int y, const char type)
+    void SetCell(const int x, const int y, const int state)
     {
-        m_map[x][y] = m_rule->CreateCell(x, y, type);
+        m_map[x][y]->SetState(state);
     }
 
 private:

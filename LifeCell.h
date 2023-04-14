@@ -5,87 +5,43 @@
 #include <memory>
 #include "GameSettings.h"
 
-enum class CellState
-{
-    DEAD,
-    ALIVE
-};
-
-enum class CellColor
-{
-    NONE,
-    RED,
-    BLUE
-};
-
-class CellBase
+class LifeCell
 {
 
 public:
-    CellBase() = delete;
-
-    CellBase(const int x, const int y, const CellState &state) : m_x(x), m_y(y), m_state(state) {}
-
-    virtual ~CellBase() = default;
+    LifeCell() : m_x(0), m_y(0), m_state(CELL_STATE_DEAD) {}
+    LifeCell(const int x, const int y, const int state) : m_x(x), m_y(y), m_state(state) {}
 
     // Getters
-    bool IsAlive() { return m_state == CellState::ALIVE; }
+    bool IsAlive() const { return m_state != CELL_STATE_DEAD; }
     int GetX() const { return m_x; }
     int GetY() const { return m_y; }
+    int GetState() const { return m_state; }
 
     // Setters
-    void SetAlive(const CellState &state) { m_state = state; }
-
-    // Convert to string for printing
-    virtual std::string GetStr() { return std::string(IsAlive() ? " O " : " . "); }
+    void SetState(const int state) { m_state = state; }
+    void IncreaseState() { m_state++; }
 
 private:
     int m_x, m_y;
-    CellState m_state;
+    int m_state;
 };
 
-class CellColorised : public CellBase
-{
-
-public:
-    CellColorised(const int x, const int y, const CellState &state, const CellColor &color) : CellBase(x, y, state), m_color(color) {}
-
-    virtual ~CellColorised() = default;
-
-    // Getters
-    CellColor GetColor() { return m_color; }
-
-    // Convert to string for printing
-    virtual std::string GetStr() override;
-
-private:
-    CellColor m_color;
-};
-
-class CellGenerations : public CellBase
-{
-
-public:
-    CellGenerations(const int x, const int y, const CellState &state) : CellBase(x, y, state), m_generation(1) {}
-
-    CellGenerations(const int x, const int y, const CellState &state, const int generation) : CellBase(x, y, state), m_generation(generation) {}
-
-    virtual ~CellGenerations() = default;
-
-    // Getters
-    int GetGeneration() { return m_generation; }
-
-    // Setters
-    void SetGeneration(const int generation);
-    void IncrementGeneration();
-
-private:
-    int m_generation;
-};
-
-using CellPointer = std::shared_ptr<CellBase>;
+using CellPointer = std::shared_ptr<LifeCell>;
 using CellNeighbors = std::vector<CellPointer>;
 using WorldMapRow = std::vector<CellPointer>;
 using WorldMap2d = std::vector<WorldMapRow>;
+
+/**
+ * @brief Create a Cell object based on the state
+ *
+ * The number of generation of the created cell is 1.
+ *
+ * @param x position of the cell
+ * @param y position of the cell
+ * @param type a char, indicate its type
+ * @return CellPointer, created cell
+ */
+CellPointer CreateCell(const int x, const int y, const int state);
 
 #endif

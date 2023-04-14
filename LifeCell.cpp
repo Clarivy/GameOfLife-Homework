@@ -1,25 +1,7 @@
 #include "LifeCell.h"
 #include "GameSettings.h"
 
-std::string CellColorised::GetStr()
+CellPointer CreateCell(const int x, const int y, const int state)
 {
-    return std::string(IsAlive() ? (GetColor() == CellColor::RED ? " R " : " B ") : " . ");
-}
-
-void CellGenerations::SetGeneration(const int generation)
-{
-    m_generation = generation;
-    if (m_generation == 0 || m_generation > MAX_GENERATIONS)
-    {
-        SetAlive(CellState::DEAD);
-        m_generation = 0;
-    }
-    else {
-        SetAlive(CellState::ALIVE);
-    }
-}
-
-void CellGenerations::IncrementGeneration()
-{
-    SetGeneration(m_generation + 1);
+    return std::make_shared<LifeCell>(x, y, state);
 }

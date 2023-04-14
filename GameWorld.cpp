@@ -14,7 +14,7 @@ GameWorld::GameWorld(const int width, const int height, const std::shared_ptr<Li
     {
         for (int j = 0; j < GetWidth(); ++j)
         {
-            m_map[i][j] = m_rule->CreateCell(i, j, BASE_CELL_DEAD);
+            m_map[i][j] = CreateCell(i, j, CELL_STATE_DEAD);
         }
     }
 }
@@ -26,7 +26,8 @@ GameWorld::GameWorld(const int width, const int height, std::string rule_type)
       m_height(height)
 {
     // Convert rule_type to lower case
-    std::transform(rule_type.cbegin(), rule_type.cend(), rule_type.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::transform(rule_type.cbegin(), rule_type.cend(), rule_type.begin(), [](unsigned char c)
+                   { return std::tolower(c); });
 
     if (rule_type == "colorised")
         m_rule = std::make_shared<LifeRuleColorised>();
@@ -44,7 +45,7 @@ GameWorld::GameWorld(const int width, const int height, std::string rule_type)
     {
         for (int j = 0; j < GetWidth(); ++j)
         {
-            m_map[i][j] = m_rule->CreateCell(i, j, BASE_CELL_DEAD);
+            m_map[i][j] = CreateCell(i, j, CELL_STATE_DEAD);
         }
     }
 }
@@ -56,7 +57,8 @@ void GameWorld::Update()
         for (int col = 0; col < GetWidth(); ++col)
         {
             const auto neighbors = GetNeighbors(row, col);
-            m_mapNext[row][col] = GetCellNextState(m_map[row][col], neighbors);
+            m_mapNext[row][col] = std::make_shared<LifeCell>(*m_map[row][col]);
+            CellUpdate(m_mapNext[row][col], neighbors);
         }
     }
     std::swap(m_mapNext, m_map);
@@ -69,7 +71,16 @@ std::string GameWorld::GetWorldStr() const
     {
         for (const CellPointer &cell : row)
         {
-            world_str += cell->GetStr();
+            switch (cell->GetState())
+            {
+            case CELL_STATE_DEAD:
+                world_str += " ";
+                break;
+            case CELL_STATE_ALIVE:
+            default:
+                world_str += "O";
+                break;
+            }
         }
         world_str += "\n";
     }

@@ -82,10 +82,10 @@ bool GameManager::LoadWorld(const std::string &filename)
                     break;
                 if (std::isspace(ch))
                     continue;
+                int state = MAP_TO_STATE.at(ch);
                 m_world->SetCell(
                     current_row,
-                    current_col,
-                    ch);
+                    current_col,state);
                 current_col++;
             }
             current_row++;
@@ -127,22 +127,48 @@ void GameManager::PrintWelcomeMessage()
 void GameManager::PrintWorld()
 {
     std::cout << "Current Round: " << GetRoundCount() << std::endl;
-    for (auto ch : m_world->GetWorldStr())
+    for (const WorldMapRow &row : m_world->GetWorldMap())
     {
-        switch (ch)
+        for (const CellPointer &cell : row)
         {
-        case BASE_CELL_ALIVE:
-            std::cout << COLOR_GREEN << ch << COLOR_RESET;
-            break;
-        case COLOR_CELL_RED:
-            std::cout << COLOR_RED << ch << COLOR_RESET;
-            break;
-        case COLOR_CELL_BLUE:
-            std::cout << COLOR_BLUE << ch << COLOR_RESET;
-            break;
-        default:
-            std::cout << ch;
-            break;
+            if (m_world->GetRuleName() == "Generations")
+            {
+                switch (cell->GetState())
+                {
+                case 0:
+                    PrintWhite(" . ");
+                    break;
+                case 1:
+                    PrintGreen(" O ");
+                    break;
+                case 2:
+                    PrintRed(" O ");
+                    break;
+                case 3:
+                default:
+                    PrintBlue(" O ");
+                    break;
+                }
+            }
+            else {
+                switch (cell->GetState())
+                {
+                case CELL_STATE_ALIVE:
+                    PrintGreen(" O ");
+                    break;
+                case CELL_STATE_RED:
+                    PrintRed(" R ");
+                    break;
+                case CELL_STATE_BLUE:
+                    PrintBlue(" B ");
+                    break;
+                case CELL_STATE_DEAD:
+                default:
+                    PrintWhite(" . ");
+                    break;
+                }
+            }
         }
+        std::cout << std::endl;
     }
 }

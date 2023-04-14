@@ -32,12 +32,12 @@ public:
      * @param neighbors All the neighbors of the cell
      * @return The next state of the cell
      */
-    virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors);
+    virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors);
 
     /**
      * @brief Get neighbors from map
      *
-     * @param game_world Current world, 
+     * @param game_world Current world,
      * @param x Row coordinate
      * @param y Col coordinate
      * @return CellNeighbors, vector of cells
@@ -51,19 +51,6 @@ public:
      * @return int
      */
     virtual int CountAliveNeighbors(const CellNeighbors &neighbors) const;
-
-    /**
-     * @brief Create a Cell object based on the type
-     *
-     * 'O' stands for alive
-     * '.' stands for dead
-     *
-     * @param x position of the cell
-     * @param y position of the cell
-     * @param type a char, indicate its type
-     * @return CellPointer, created cell
-     */
-    virtual CellPointer CreateCell(const int x, const int y, const char type) const;
 
     /**
      * @brief Get the Rule Name object
@@ -82,20 +69,7 @@ class LifeRuleColorised : public LifeRuleBase
      * @param neighbors
      * @return CellPointer
      */
-    virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) override;
-
-    /**
-     * @brief Create a Cell object based on the type
-     *
-     * 'R' and 'B' stand for alive, where R stands for red and B stands for blue
-     * '.' stands for dead
-     *
-     * @param x position of the cell
-     * @param y position of the cell
-     * @param type a char, indicate its type
-     * @return CellPointer, created cell
-     */
-    virtual CellPointer CreateCell(const int x, const int y, const char type) const override;
+    virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors) override;
 
     virtual const std::string GetRuleName() const { return "Colorised"; }
 };
@@ -129,19 +103,7 @@ class LifeRuleGenerations : public LifeRuleBase
      * @param neighbors
      * @return CellPointer
      */
-    virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) override;
-
-    /**
-     * @brief Create a Cell object based on the type
-     *
-     * The number of generation of the created cell is 1.
-     *
-     * @param x position of the cell
-     * @param y position of the cell
-     * @param type a char, indicate its type
-     * @return CellPointer, created cell
-     */
-    virtual CellPointer CreateCell(const int x, const int y, const char type) const override;
+    virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors) override;
 
     virtual const std::string GetRuleName() const { return "Generations"; }
 };
@@ -165,7 +127,7 @@ class LifeRuleWeighted : public LifeRuleExtended
      * @param neighbors
      * @return CellPointer
      */
-    virtual CellPointer DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) override;
+    virtual void DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors) override;
 
     virtual const std::string GetRuleName() const { return "Weighted"; }
 };

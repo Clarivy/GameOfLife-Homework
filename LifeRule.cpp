@@ -16,18 +16,19 @@ int LifeRuleBase::CountAliveNeighbors(const CellNeighbors &neighbors) const
     return count_alive;
 }
 
-CellPointer LifeRuleBase::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+void LifeRuleBase::DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors)
 {
     const int count_alive = CountAliveNeighbors(neighbors);
     if (current->IsAlive() && (!BASE_CELL_SURVIVE_CONDITION.count(count_alive)))
     {
-        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_DEAD);
+        current->SetState(CELL_STATE_DEAD);
+        return;
     }
     if (!current->IsAlive() && BASE_CELL_BIRTH_CONDITION.count(count_alive))
     {
-        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_ALIVE);
+        current->SetState(CELL_STATE_ALIVE);
+        return;
     }
-    return current;
 }
 
 CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, const int x, const int y) const
@@ -50,65 +51,32 @@ CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, cons
     return neightbors;
 }
 
-CellPointer LifeRuleBase::CreateCell(const int x, const int y, const char type) const
-{
-    switch (std::toupper(type))
-    {
-    case BASE_CELL_ALIVE:
-        return std::make_shared<CellBase>(x, y, CellState::ALIVE);
-    case BASE_CELL_DEAD:
-        return std::make_shared<CellBase>(x, y, CellState::DEAD);
-    default:
-        return std::make_shared<CellBase>(x, y, CellState::DEAD);
-    }
-}
-
-CellPointer LifeRuleColorised::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+void LifeRuleColorised::DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors)
 {
     int count_blue = 0;
     int count_red = 0;
     for (auto neighbor : neighbors)
     {
-        auto neighbor_colorised = std::dynamic_pointer_cast<CellColorised>(neighbor);
-        if (neighbor_colorised->IsAlive())
+        if (neighbor->IsAlive())
         {
-            if (neighbor_colorised->GetColor() == CellColor::BLUE)
-            {
+            if (neighbor->GetState() == CELL_STATE_BLUE)
                 ++count_blue;
-            }
-            else if (neighbor_colorised->GetColor() == CellColor::RED)
-            {
+            else if (neighbor->GetState() == CELL_STATE_RED)
                 ++count_red;
-            }
         }
         else
-        {
             continue;
-        }
     }
     int count_alive = count_blue + count_red;
-    if (current->IsAlive() && BASE_CELL_SURVIVE_CONDITION.count(count_alive))
-    {
-        return current;
-    }
     if (!current->IsAlive() && BASE_CELL_BIRTH_CONDITION.count(count_alive))
     {
-        return CreateCell(current->GetX(), current->GetY(), count_blue > count_red ? COLOR_CELL_BLUE : COLOR_CELL_RED);
+        current->SetState(count_blue > count_red ? CELL_STATE_BLUE : CELL_STATE_RED);
+        return;
     }
-    return CreateCell(current->GetX(), current->GetY(), COLOR_CELL_DEAD);
-}
-
-CellPointer LifeRuleColorised::CreateCell(const int x, const int y, const char type) const
-{
-    switch (std::toupper(type))
+    if (current->IsAlive() && (!BASE_CELL_SURVIVE_CONDITION.count(count_alive)))
     {
-    case COLOR_CELL_BLUE:
-        return std::make_shared<CellColorised>(x, y, CellState::ALIVE, CellColor::BLUE);
-    case COLOR_CELL_RED:
-        return std::make_shared<CellColorised>(x, y, CellState::ALIVE, CellColor::RED);
-    case COLOR_CELL_DEAD:
-    default:
-        return std::make_shared<CellColorised>(x, y, CellState::DEAD, CellColor::NONE);
+        current->SetState(CELL_STATE_DEAD);
+        return;
     }
 }
 
@@ -132,45 +100,20 @@ CellNeighbors LifeRuleExtended::GetNeighbors(const GameWorld *const game_world, 
     return neightbors;
 }
 
-CellPointer LifeRuleGenerations::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+void LifeRuleGenerations::DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors)
 {
     const int count_alive = CountAliveNeighbors(neighbors);
-    auto current_generations = std::dynamic_pointer_cast<CellGenerations>(current);
-    if (!current_generations->IsAlive() && BASE_CELL_BIRTH_CONDITION.count(count_alive))
-    {
-        return CreateCell(current_generations->GetX(), current_generations->GetY(), BASE_CELL_ALIVE);
-    }
-    if (current_generations->IsAlive() && current_generations->GetGeneration() == 1)
-    {
-        if (BASE_CELL_SURVIVE_CONDITION.count(count_alive))
-        {
-            auto new_cell = std::make_shared<CellGenerations>(*current_generations);
-            new_cell->IncrementGeneration();
-            return new_cell;
-        }
-        return current_generations;
-    }
-    if (current_generations->IsAlive() && current_generations->GetGeneration() > 1)
-    {
-        auto new_cell = std::make_shared<CellGenerations>(*current_generations);
-        new_cell->IncrementGeneration();
-        return new_cell;
-    }
-    return current_generations;
+    if (!current->IsAlive() && BASE_CELL_BIRTH_CONDITION.count(count_alive))
+        return current->SetState(1);
+    if (current->GetState() == 1 && (!BASE_CELL_SURVIVE_CONDITION.count(count_alive)))
+        current->IncreaseState();
+    else if (current->IsAlive() && current->GetState() > 1)
+        current->IncreaseState();
+    if (current->GetState() == MAX_GENERATIONS)
+        current->SetState(CELL_STATE_DEAD);
 }
 
-CellPointer LifeRuleGenerations::CreateCell(const int x, const int y, const char type) const
-{
-    switch (std::toupper(type))
-    {
-    case BASE_CELL_ALIVE:
-        return std::make_shared<CellGenerations>(x, y, CellState::ALIVE);
-    default:
-        return std::make_shared<CellGenerations>(x, y, CellState::DEAD);
-    }
-}
-
-CellPointer LifeRuleWeighted::DetermineNextState(const CellPointer current, const CellNeighbors &neighbors)
+void LifeRuleWeighted::DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors)
 {
     int weighted_alive = 0;
     for (auto neighbor : neighbors)
@@ -186,11 +129,10 @@ CellPointer LifeRuleWeighted::DetermineNextState(const CellPointer current, cons
     }
     if (current->IsAlive() && (!WEIGHTED_CELL_SURVIVE_CONDITION.count(weighted_alive)))
     {
-        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_DEAD);
+        current->SetState(CELL_STATE_DEAD);
     }
     if (!current->IsAlive() && WEIGHTED_CELL_BIRTH_CONDITION.count(weighted_alive))
     {
-        return CreateCell(current->GetX(), current->GetY(), BASE_CELL_ALIVE);
+        current->SetState(CELL_STATE_ALIVE);
     }
-    return current;
 }
