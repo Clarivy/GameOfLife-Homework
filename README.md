@@ -40,7 +40,7 @@ There are many [variants of the Game of Life](https://en.wikipedia.org/wiki/Conw
 
 - **Generations:**
 
-  It follows the **original** rules as described above with one change: the living cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'gets older' before the final death.
+  It follows the basic rules as described above with one change: the living cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'gets older' before the final death.
 
   The formal definition will be described later. More on [wiki](https://conwaylife.com/wiki/Generations).
 
@@ -68,7 +68,7 @@ Here is the description:
 
 - `LifeRuleBase`: We have provided for you. This is the original Game of Life, contains the basic code for implementing a rule in the Game of Life.
 - `LifeRuleColorised`: **You need to complete it**. In this variant, the live cells have different colors.
-- `LifeRuleExtended`: _You need to complete it_. In this variant, the size of a cell's neighborhood is extended.
+- `LifeRuleExtended`: **You need to complete it**. In this variant, the size of a cell's neighborhood is extended.
 - `LifeRuleWeighted`: **You need to complete it**. In this variant, neighbors are weighted.
 - `LifeRuleGenerations`: **You need to complete it**. In this variant, the cells 'get older' before eventually dying.
 
@@ -95,7 +95,7 @@ Here is the definition of the three functions:
 void DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) const
 ```
 
-This function will determine the next state of a cell, based on its current state and the number of lived `neighbors`. It applies the original rules. (对吗？)
+This function will determine the next state of a cell, based on its current state and the number of lived `neighbors`. 
 
 - **_Parameters:_**
 
@@ -165,7 +165,7 @@ This can be done by overriding `DetermineNextState` in `LifeRuleExtended`.
 
 #### Generations Rule
 
-The generations rule is a variant of the original game. Now the live cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'gets older' before the final death.
+The generations rule is a variant of the original game. Now the live cells will not die immediately when overpopulation or underpopulation happens. Instead, the cells 'get older' before the final death.
 
 The detailed rules are as follows:
 
@@ -189,7 +189,7 @@ You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
 #### Cell State
 
-The cell class `LifeCell` is defined in `LifeCell.cpp`. It has three attributes: **x**, **y** and **state**. However, to support different rules, the state is not only a 'dead' or 'alive' state, but a integer state. The state of a cell can be one of the following:
+The cell class `LifeCell` is defined in `LifeCell.cpp`. It has three attributes: **x**, **y** and **state**. However, to support different rules, the state is **not** a binary state (just 'dead' or 'alive'), but an integer state. The state of a cell can be one of the following:
 
 - 0: dead
 - 1: alive
@@ -198,22 +198,22 @@ The cell class `LifeCell` is defined in `LifeCell.cpp`. It has three attributes:
 
 Or the state can be the generation of the cell in generations rule, in which case the state can be any integer from 0 to 8.
 
-Your implementation of the rules should be able to handle the state transition between these states, it is guaranteed in all test cases that
+Your implementation of the rules should be able to handle the state transition within the range, it is guaranteed in all test cases that:
 
 - The state of a cell will never be negative.
-- In the base rule, extended rule and weighted rule, the state of a cell will only be 0 or 1.
+- In the base rules, extended rules and weighted rules, the state of a cell will only be 0 or 1.
 - In the colorised rule, the state of a cell will only be 0, 2 or 3.
-- In the generations rule, the state of a cell will only be 0, 1 or 2 to 8.
+- In the generations rule, the state of a cell will only be integers from 0 to 8.
 
 #### Map File
 
-Our game world can be represented by a map file. In these homework, we use a simple `.cells` file to store the initial state of the game. 
+Our game world can be represented by a map file. In our homework, we use a simple `.cells` file to store the initial state of the game. 
 
 We provide some example files in the `map` folder, you can refer to [How-to-Run](#how-to-run) to see how to load the map file. This file format is also supported by [golly](https://golly.sourceforge.net/webapp/golly.html).
 
 You don't need to load the map by yourself, our framework have already implemented the map loading function. In case you want to edit the map file, here is a brief introduction of the file format:
 
-> ##### This part can be ignored if you don't want to edit the map file.
+> ##### Notice: This part can be ignored if you don't want to edit the map file.
 > ###### Comments start with a '!' and are ignored
 >
 > ###### Cells are represented by a 'O' or '.' (alive or dead respectively)
