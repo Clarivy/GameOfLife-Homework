@@ -83,9 +83,9 @@ For the original rules, a cell in grid can be described by three parameters: **x
 - $(x, y)$ represents the coordinate of this cell. $(x, y \in Z^+, 0 \leq x, y \leq 24)$
 - State describes whether the cell is alive or dead.
 
-A cell is defined in `LifeCell.cpp`, called `CellBase`, with a smart pointer `CellPointer`.
+A cell is defined in `LifeCell.cpp`, called `class LifeCell`, with a smart pointer `CellPointer`.
 
-A class of any rules have three key functions `DetermineNextState`, `GetNeighbors` and `CreateCell`. You may want to reuse some of those while some of them rewrote.
+A class of any rules have two key functions `DetermineNextState`, `GetNeighbors`. You may want to reuse some of those while some of them rewrote.
 
 Here is the definition of the three functions:
 
@@ -126,21 +126,6 @@ It returns a vector containing all of the neighbors of the cell at $(x, y)$. For
   All neighbors of a cell at $(x, y)$.
 
   #### GetNeighbors
-
-```cpp
-CellPointer CreateCell(const int x, const int y, const char type) const
-```
-
-It create a cell based on the `type` with position of $(x, y)$.
-
-- **_Parameters:_**
-
-  `x`,` y`: Coordinate of the cell.
-
-  `type`: In base rule, it is either `BASE_CELL_ALIVE` or `BASE_CELL_DEAD` representing alive or dead, respectively. You can refer to [Map-Representations](#map-representations) for more details.
-
-- **_Returns:_**
-  A new cell with position of $(x, y)$ and state of `type`.
 
 ### Rules Implementation Guide
 
@@ -206,9 +191,38 @@ In our game, $N = 8$.
 
 You may want to inherit `LifeRuleBase` and override its `DetermineNextState`.
 
-### Map Representations
+### Cell state and map representation
 
-#### Map File Format
+#### Cell State
+
+The cell class `LifeCell` is defined in `LifeCell.cpp`. It has three attributes: **x**, **y** and **state**. However, to support different rules, the state is not only a 'dead' or 'alive' state, but a integer state. The state of a cell can be one of the following:
+
+- 0: dead
+- 1: alive
+- 2: red (colorised rule)
+- 3: blue (colorised rule)
+
+Or the state can be the generation of the cell in generations rule, in which case the state can be any integer from 0 to 8.
+
+Your implementation of the rules should be able to handle the state transition between these states, it is guaranteed in all test cases that
+
+- The state of a cell will never be negative.
+- In the base rule, extended rule and weighted rule, the state of a cell will only be 0 or 1.
+- In the colorised rule, the state of a cell will only be 0, 2 or 3.
+- In the generations rule, the state of a cell will only be 0, 1 or 2 to 8.
+
+#### Map File
+
+Our game world can be represented by a map file. In these homework, we use a simple `.cells` file to store the initial state of the game. 
+
+We provide some example files in the `map` folder, you can refer to [How-to-Run](#how-to-run) to see how to load the map file. This file format is also supported by [golly](https://golly.sourceforge.net/webapp/golly.html).
+
+You don't need to load the map by yourself, our framework have already implemented the map loading function. In case you want to edit the map file, here is a brief introduction of the file format:
+
+> Comments start with a ! and are ignored
+> Cells are represented by a O or . (alive or dead respectively)
+> R and B represent red and blue cells in colorised rule (it is ignored in other rules, and not supported by golly).
+
 
 ### How to run
 
@@ -236,7 +250,7 @@ The program takes one argument, which is the rule you want to use. The rule can 
 
 Try to run with `./gof base` and you can play with the original Game of Life.
 
-You can select a map from `map/` and play with it. We have provided different maps for different rules.
+Then, you can select a map from `map/` and play with it. We have provided different maps for different rules.
 
 For example, you can run with `./gof colorised`, then load the map 'map/colorised.cells'.
 
