@@ -171,7 +171,7 @@ The generations rule is a variant of the original game. Now the live cells will 
 
 The detailed rules are as follows:
 
-1.  A cell in state 0 ("dead") will switch to state 1 ("born") in the next state if it has 3 neighbors in state 1 ("alive").
+1.  A cell in state 0 ("dead") will switch to state 1 ("born") in the next state if it has exactly 3 neighbors that is **not** in state 0 ("dead").
 2.  A cell in state 1 ("alive") will:
 
     - Remain in state 1 ("survive") in the next state if it has 2 or 3 neighbors in state 1 ("alive").
