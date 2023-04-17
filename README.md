@@ -153,7 +153,7 @@ The weighted life rule is a variant of our extended game. Now the living cells a
 2. **Underpopulation:** Any cells with a total influence of less than 4 dies.
 3. **Survive:** Any living cell with $4 \leq $total influence $\leq 6 $ survives.
 4. **Overpopulation:** Any live cell with weight more than 6 living neighbours dies.
-5. **Reborn:** Any dead cell with exactly 6 living neighbors becomes alive.
+5. **Reborn:** Any dead cell with 5 or 6 living neighbors becomes alive.
 
 The neighborhood of a cell $x$ can be now represented as the following matrix:
 
