@@ -16,6 +16,7 @@ void GameManager::StartGame()
         std::cout << "Please enter the world map to load: ";
         std::cin >> filename;
     } while (!LoadWorld(filename));
+    std::cout << "World loaded successfully" << std::endl;
     while (!IsGameOver())
     {
         PrintWorld();
@@ -102,7 +103,6 @@ bool GameManager::LoadWorld(const std::string &filename)
             current_row++;
         }
         file.close();
-        std::cout << "World loaded successfully" << std::endl;
         return true;
     }
     std::cout << "Unable to open file" << std::endl;
