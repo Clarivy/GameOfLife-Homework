@@ -104,7 +104,10 @@ void LifeRuleGenerations::DetermineNextState(const CellPointer &current, const C
 {
     const int count_alive = CountAliveNeighbors(neighbors);
     if (!current->IsAlive() && BASE_CELL_BIRTH_CONDITION.count(count_alive))
-        return current->SetState(1);
+    {
+        current->SetState(1);
+        return;
+    }
     if (current->GetState() == 1 && (!BASE_CELL_SURVIVE_CONDITION.count(count_alive)))
         current->IncreaseState();
     else if (current->GetState() > 1)
@@ -130,9 +133,11 @@ void LifeRuleWeighted::DetermineNextState(const CellPointer &current, const Cell
     if (current->IsAlive() && (!WEIGHTED_CELL_SURVIVE_CONDITION.count(weighted_alive)))
     {
         current->SetState(CELL_STATE_DEAD);
+        return;
     }
     if (!current->IsAlive() && WEIGHTED_CELL_BIRTH_CONDITION.count(weighted_alive))
     {
         current->SetState(CELL_STATE_ALIVE);
+        return;
     }
 }
