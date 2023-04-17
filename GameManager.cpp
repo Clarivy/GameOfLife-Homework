@@ -27,6 +27,7 @@ void GameManager::StartGame()
             std::cout << "Please enter the filename to save to: ";
             std::cin >> filename;
             SaveWorld(filename);
+            std::cout << "World saved successfully" << std::endl;
             break;
         case KeyCode::QUIT:
             ExitGame();
@@ -82,10 +83,20 @@ bool GameManager::LoadWorld(const std::string &filename)
                     break;
                 if (std::isspace(ch))
                     continue;
-                int state = MAP_TO_STATE.at(ch);
-                m_world->SetCell(
-                    current_row,
-                    current_col,state);
+                if (std::isdigit(ch))
+                {
+                    m_world->SetCell(
+                        current_row,
+                        current_col, ch - '0');
+                }
+                else
+                {
+
+                    int state = MAP_TO_STATE.at(ch);
+                    m_world->SetCell(
+                        current_row,
+                        current_col, state);
+                }
                 current_col++;
             }
             current_row++;
@@ -135,22 +146,16 @@ void GameManager::PrintWorld()
             {
                 switch (cell->GetState())
                 {
-                case 0:
+                case CELL_STATE_DEAD:
                     PrintWhite(" . ");
                     break;
-                case 1:
-                    PrintGreen(" O ");
-                    break;
-                case 2:
-                    PrintRed(" O ");
-                    break;
-                case 3:
                 default:
-                    PrintBlue(" O ");
+                    PrintBlue(" " + std::to_string(cell->GetState()) + " ");
                     break;
                 }
             }
-            else {
+            else
+            {
                 switch (cell->GetState())
                 {
                 case CELL_STATE_ALIVE:

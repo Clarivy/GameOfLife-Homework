@@ -30,7 +30,9 @@ public:
     void UpdateGame();
 
     /**
-     * @brief Saves the current world to a file
+     * @brief Saves the current world to a file like a [plain text](https://conwaylife.com/wiki/Plaintext) .cells file format
+     * 
+     * Used for OJ to check your answer
      *
      * @param filename The name of the file to save to
      */

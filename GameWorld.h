@@ -52,10 +52,16 @@ public:
     // Get Rule Name
     const std::string GetRuleName() const { return m_rule->GetRuleName(); }
 
+    /**
+     * @brief Get string of the world
+     *
+     * Used for OJ to check your answer
+     *
+     * @return std::string
+     */
     std::string GetWorldStr() const;
 
     const WorldMap2d &GetWorldMap() const { return m_map; }
-
 
     CellNeighbors GetNeighbors(const int x, const int y) const { return m_rule->GetNeighbors(this, x, y); }
 

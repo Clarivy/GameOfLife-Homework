@@ -71,15 +71,28 @@ std::string GameWorld::GetWorldStr() const
     {
         for (const CellPointer &cell : row)
         {
-            switch (cell->GetState())
+            if (GetRuleName() == "Generations")
             {
-            case CELL_STATE_DEAD:
-                world_str += " ";
-                break;
-            case CELL_STATE_ALIVE:
-            default:
-                world_str += "O";
-                break;
+                world_str += std::to_string(cell->GetState());
+            }
+            else
+            {
+                switch (cell->GetState())
+                {
+                case CELL_STATE_DEAD:
+                    world_str += ".";
+                    break;
+                case CELL_STATE_RED:
+                    world_str += "R";
+                    break;
+                case CELL_STATE_BLUE:
+                    world_str += "B";
+                    break;
+                case CELL_STATE_ALIVE:
+                default:
+                    world_str += "O";
+                    break;
+                }
             }
         }
         world_str += "\n";
