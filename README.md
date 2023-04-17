@@ -185,9 +185,9 @@ The detailed rules are as follows:
     - Remain in state 1 ("survive") in the next state if it has 2 or 3 neighbors in state 1 ("alive").
     - Otherwise, switch to state 2 ("aging") in the next state.
 
-3.  A cell in state $m \geq 2$ will switch to state $m + 1$ in the next state. In particular, a cell in state $N$ will be reset to state 0 ("die").
+3.  A cell in state $m \geq 2$ will switch to state $m + 1$ in the next state. In particular, a cell in state $N$ will be reset to state 0 ("die"). Which means that the state of a cell should always be in the range $[0, N)$ and can **never** be $N$.
 
-In our game, $N = 8$.
+In this homework, $N = 8$.
 
 - Please note that it should be implemented as `class LifeRuleGenerations`.
 
@@ -213,7 +213,7 @@ Your implementation of the rules should be able to handle the state transition w
 - The state of a cell will never be negative.
 - In the base rules, extended rules and weighted rules, the state of a cell will only be 0 or 1.
 - In the colorised rule, the state of a cell will only be 0, 2 or 3.
-- In the generations rule, the state of a cell will only be integers from 0 to 8.
+- In the generations rule, the state of a cell will only be integers from 0 to 7.
 
 #### Map File
 
