@@ -123,11 +123,6 @@ It returns a vector containing all of the neighbors of the cell at $(x, y)$. For
 
 ### Rules Implementation Guide
 
-Notice: 
-
-- Except for the **Generations Rule**, the state of a cell is always 0 (dead) or 1(alive).
-- The distance we discussed here are all **relative distance**, and they are calculated within the format of a matrix. Which means Euclidean Distance is not correct !
-
 #### Colorised Rule
 
 The colorised rule is a variant of the original game. Now the living cells are all colored with one of the two different colors, red and blue. When a cell is born, its color will be decided by the major color of its three lived neighbors.
@@ -154,21 +149,25 @@ The extended rule is a variant of the original game, where a cell's neighborhood
 
 The weighted life rule is a variant of our extended game. Now the living cells are all weighted, meaning that some neighbors might have greater influences. 
 
-First, let's define the *total influence* of a cell. This shows how much influence a cell receives from its neighbors in all. In our rules, each neighbor's weight relative to $x$ can be represented as the matrix below:
+First, let's define the *total influence* of a cell. This shows how much influence a cell receives from its neighbors in all. In our rules, each neighbor's weight **relative** to $x$ can be represented as the matrix below:
 
-$$ \begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix}\tag{2} $$
+$$ \begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix}\tag{2}$$
 
-Then, knowing every neighbor's *weight* ($W$) and value ($V$),  the *total influence* ($F$) of a cell can be computed with the equation:
+Then, knowing every neighbor's *weight* ($W$) and *state* ($S$, dead for 0 and live for 1),  the *total influence* ($F$) of a cell can be computed with the equation:
 
-$$F_x = \sum\limits_{y}W_y \cdot V_y, \text{ for all y in x's neighborhood}$$.
+$$ F_x = \sum\limits_{y}W_y \cdot S_y, \text{ for all y in x's neighborhood} $$
 
 So in detail, what you should do is:
 
 1. For a living cell, calculate the sum of the weights of its neighbors. We call this *total influence*.
 2. **Underpopulation:** Any cells with a *total influence* $<4$ dies.
-3. **Survive:** Any living cell with $4 \leq $*total influence* $\leq 6 $ survives.
-4. **Overpopulation: **Any cells with a *total influence* $>6$ dies.
-5. **Reborn:** Any dead cell with $5 \leq $*total influence* $\leq 6 $  becomes alive.
+3. **Survive:** Any living cell with $4 \leq $ *total influence* $\leq 6 $ survives.
+4. **Overpopulation:** Any cells with a *total influence* $>6$ dies.
+5. **Reborn:** Any dead cell with $5 \leq$ *total influence* $\leq 6 $  becomes alive.
+
+For example, the cell in the center of the following grid has a *total influence* of 6, so it will survive in the next generation.
+
+![https://conwaylife.com/wiki/Moore_neighbourhood](pics/weighted.png)
 
 ##### Hint
 
