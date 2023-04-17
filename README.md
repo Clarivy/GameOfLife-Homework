@@ -250,7 +250,7 @@ In Linux or MacOS, you can compile with:
 g++ -Wall -Wextra -o gol GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRule.cpp
 ```
 
-The framework we provide fails to compile, because the four `class`es of life rules for you to write haven't inherited from `LifeRuleBase` yet. Try to make these `class`es inherit from `LifeRuleBase`, and you can compile your code to run the base game.
+The framework we provide does not compile right off-hand, because the four `class`es of life rules for you to write haven't inherited from `LifeRuleBase` yet. Try to make these `class`es inherit from `LifeRuleBase`, and you can compile your code to run the base game.
 
 #### Run the project
 
