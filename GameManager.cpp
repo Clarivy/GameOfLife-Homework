@@ -16,11 +16,11 @@ void GameManager::StartGame()
         std::cout << "Please enter the world map to load: ";
         std::cin >> filename;
     } while (!LoadWorld(filename));
-    std::cout << "World loaded successfully" << std::endl;
+    std::cout << "World loaded successfully." << std::endl;
     while (!IsGameOver())
     {
         PrintWorld();
-        std::cout << "Press any key to continue..." << std::endl;
+        std::cout << "Press Enter to continue, 's' to save the current world, and 'q' to quit." << std::endl;
         KeyCode option = GetKey();
         switch (option)
         {
@@ -28,7 +28,7 @@ void GameManager::StartGame()
             std::cout << "Please enter the filename to save to: ";
             std::cin >> filename;
             SaveWorld(filename);
-            std::cout << "World saved successfully" << std::endl;
+            std::cout << "World saved successfully." << std::endl;
             break;
         case KeyCode::QUIT:
             ExitGame();
