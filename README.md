@@ -56,7 +56,7 @@ You will notice that some of the patterns are stable, meaning that they will con
 
 The Game of Life is a very simple game, but it has been shown to be capable of producing complex and interesting patterns. In fact, there are entire websites and books dedicated to the study of the Game of Life.
 
-Your task is to complete the implementation of our C++ version of the Game of Life with multiple rules. We have provided you a framework to help you get started. You need to implement all the functions in `LifeRuleStudent.cpp`.
+Your task is to complete the implementation of our C++ version of the Game of Life with multiple rules. We have provided you a framework to help you get started. You need to implement all the functions in `LifeRule.cpp`.
 
 We have provided you with a framework to help you get started. You can refer to [How-to-Run](#how-to-run) to play with the game.
 
@@ -72,7 +72,7 @@ Here is the description:
 - `LifeRuleWeighted`: **You need to complete it**. In this variant, neighbors are weighted.
 - `LifeRuleGenerations`: **You need to complete it**. In this variant, the cells 'get older' before eventually dying.
 
-To make sure the homework compile, every rule should be a subclass of `LifeRuleBase`. There is no need for you to change other files. And since you can only submit `LifeRuleStudent.cpp` and `LifeRuleStudent.h` to OJ, any other change will not be considered.
+To make sure the homework compiles, every rule should be a subclass of `LifeRuleBase`. There is no need for you to change other files. And since you can only submit `LifeRule.cpp` and `LifeRule.h` to OJ, any other change will not be considered.
 
 ### Framework
 
@@ -238,31 +238,33 @@ The file format is similar to [plain text format](https://conwaylife.com/wiki/Pl
 
 #### Compile the project
 
-In Windows, you can run with:
+In Windows, you can compile with:
 
 ```bash
-g++ -Wall -Wextra -o gof.exe GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
+g++ -Wall -Wextra -o gol.exe GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRule.cpp
 ```
 
-In Linux or MacOS, you can run with:
+In Linux or MacOS, you can compile with:
 
 ```bash
-g++ -Wall -Wextra -o gof GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRuleStudent.cpp
+g++ -Wall -Wextra -o gol GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRule.cpp
 ```
+
+The framework we provide fails to compile, because the four `class`es of life rules for you to write haven't inherited from `LifeRuleBase` yet. Try to make these `class`es inherit from `LifeRuleBase`, and you can compile your code to run the base game.
 
 #### Run the project
 
 ```bash
-./gof <rule>
+./gol <rule>
 ```
 
 The program takes one argument, which is the rule you want to use. The rule can be `Base`, `Colorised`, `Extended`, `Weighted`, `Generations`.
 
-Try to run with `./gof base` and you can play with the original Game of Life.
+Try to run with `./gol base` and you can play with the original Game of Life.
 
 Then, you can select a map from `map/` and play with it. We have provided different maps for different rules.
 
-For example, you can run with `./gof colorised`, then load the map 'map/colorised.cells'.
+For example, after you have implemented `LifeRuleColorised`, you can run with `./gol colorised`, then load the map 'map/colorised.cells'.
 
 You can find more maps at the [wiki](https://conwaylife.com/wiki/) and play with them at [golly](https://golly.sourceforge.net/webapp/golly.html).
 
@@ -274,7 +276,7 @@ This problem contains several files. You may need to read and understand some of
 
 | Filename                                   | Description |
 | ------------------------------------------ | ----------- |
-| `LifeRuleStudent.h`, `LifeRuleStudent.cpp` | 	Where all of your rules will reside. You need to implement the rules in this file. You only need to submit these files.    |
+| `LifeRule.h`, `LifeRule.cpp` | 	Where all of your rules will reside. You need to implement the rules in this file. You only need to submit these files.    |
 
 #### Files you might want to look at:
 
@@ -296,14 +298,14 @@ This problem contains several files. You may need to read and understand some of
 
 ## Submission
 
-You need to pack `LifeRuleStudent.h` and `LifeRuleStudent.cpp` into a zip file and submit it to OJ.
+You need to pack `LifeRule.h` and `LifeRule.cpp` into a zip file and submit it to OJ.
 
 The zip file should only contain these two files.
 
 In Linux or MacOS, you can run the following command to pack the files:
 
 ```bash
-zip -r submit.zip LifeRuleStudent.h LifeRuleStudent.cpp
+zip -r submit.zip LifeRule.h LifeRule.cpp
 ```
 
 In Windows, you can use [7-zip](https://www.7-zip.org/) to pack the files or use the following command:
