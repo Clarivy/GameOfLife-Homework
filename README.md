@@ -72,7 +72,7 @@ Here is the description:
 - `LifeRuleWeighted`: **You need to complete it**. In this variant, neighbors are weighted.
 - `LifeRuleGenerations`: **You need to complete it**. In this variant, the cells 'get older' before eventually dying.
 
-To make sure the homework compile, every rule should be a subclass of `LifeRuleBase`. There is no need for you to change other files. And since you can only submit `LifeRuleStudent.cpp` to OJ, any other change will not be considered.
+To make sure the homework compile, every rule should be a subclass of `LifeRuleBase`. There is no need for you to change other files. And since you can only submit `LifeRuleStudent.cpp` and `LifeRuleStudent.h` to OJ, any other change will not be considered.
 
 ### Framework
 
@@ -270,6 +270,44 @@ You can find more maps at the [wiki](https://conwaylife.com/wiki/) and play with
 
 This problem contains several files. You may need to read and understand some of them in order to complete the assignment. There are also some files that you can simply ignore. **You don't need to understand every line to finish this homework**.
 
+#### Files you'll edit:
+
+| Filename                                   | Description |
+| ------------------------------------------ | ----------- |
+| `LifeRuleStudent.h`, `LifeRuleStudent.cpp` | 	Where all of your rules will reside. You need to implement the rules in this file. You only need to submit these files.    |
+
+#### Files you might want to look at:
+
+| Filename                     | Description |
+| ---------------------------- | ----------- |
+| `LifeCell.h`, `LifeCell.cpp` | The cell class, which represents a cell in a grid in the game world. |
+| `GameWorld.h`, `GameWorld.cpp` | Contains the game world class, which maintains all the cells in the game world. |
+| `main.cpp`                   |        The main file that runs the game. This file defined a game instance and build up a interface.    |
+| `GameSettings.h`             | The file that defines some basic game settings as described above. You may want to use these settings in your implementation. |
+| `map/base.cells`, `map/colorised.cells`... |  The map files for different rules. You can load them in the game. |
+
+#### Supporting files you can ignore:
+
+| Filename                                   | Description |
+| ------------------------------------------ | ----------- |
+| `utils.h`                                  |             Useful functions for implementing the interface. |
+| `GameManager.cpp`, `GameManager.h`         | Simple ASCII graphics for the game |
+
+
 ## Submission
 
-You only need to submit `LifeRuleStudent.cpp` to OJ.
+You need to pack `LifeRuleStudent.h` and `LifeRuleStudent.cpp` into a zip file and submit it to OJ.
+
+The zip file should only contain these two files.
+
+In Linux or MacOS, you can run the following command to pack the files:
+
+```bash
+zip -r submit.zip LifeRuleStudent.h LifeRuleStudent.cpp
+```
+
+In Windows, you can use [7-zip](https://www.7-zip.org/) to pack the files or use the following command:
+
+```bash
+tar.exe -a -c -f submit.zip LifeRule.cpp LifeRule.h
+```
