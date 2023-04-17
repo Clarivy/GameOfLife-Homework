@@ -107,9 +107,9 @@ void LifeRuleGenerations::DetermineNextState(const CellPointer &current, const C
         return current->SetState(1);
     if (current->GetState() == 1 && (!BASE_CELL_SURVIVE_CONDITION.count(count_alive)))
         current->IncreaseState();
-    else if (current->IsAlive() && current->GetState() > 1)
+    else if (current->GetState() > 1)
         current->IncreaseState();
-    if (current->GetState() == MAX_GENERATIONS)
+    if (current->GetState() >= MAX_GENERATIONS)
         current->SetState(CELL_STATE_DEAD);
 }
 
