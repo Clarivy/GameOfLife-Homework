@@ -15,3 +15,4 @@ for rule_type in test_task:
         output = Path(testcase).with_suffix(".ans")
         os.system(RUN_COMMAND(rule_type, testcase, output))
         # print(RUN_COMMAND(rule_type, testcase, output))
+    print(f"Rule {rule_type} generated.")
