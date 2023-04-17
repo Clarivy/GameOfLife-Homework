@@ -209,9 +209,12 @@ Your implementation of the rules should be able to handle the state transition b
 
 Our game world can be represented by a map file. In these homework, we use a simple `.cells` file to store the initial state of the game. 
 
-We provide some example files in the `map` folder, you can refer to [How-to-Run](#how-to-run) to see how to load the map file. This file format is also supported by [golly](https://golly.sourceforge.net/webapp/golly.html).
+We provide some example files in the `map` folder, you can refer to [How-to-Run](#how-to-run) to see how to load the map file. 
 
 You don't need to load the map by yourself, our framework have already implemented the map loading function. In case you want to edit the map file, here is a brief introduction of the file format:
+
+The file format is similar to [plain text format](https://conwaylife.com/wiki/Plaintext) for simpilicity. However, to support different rules, we have made some changes to the file format.
+
 
 > ##### This part can be ignored if you don't want to edit the map file.
 > ###### Comments start with a '!' and are ignored
@@ -219,7 +222,7 @@ You don't need to load the map by yourself, our framework have already implement
 > ###### Cells are represented by a 'O' or '.' (alive or dead respectively)
 >
 > ###### 'R' and 'B' represent red and blue cells in colorised rule (it is ignored in other rules, and not supported officially by golly).
-
+> ###### Numbers represent the generation of the cell in generations rule (it is ignored in other rules, and not supported officially by golly).
 
 ### How to run
 
