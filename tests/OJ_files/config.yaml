@@ -1,0 +1,73 @@
+type: default
+time: 1000ms
+memory: 256MB
+user_extra_files:
+  - run_testcase.cpp 
+  - GameWorld.h
+  - GameWorld.cpp 
+  - GameManager.h
+  - GameManager.cpp 
+  - LifeCell.h 
+  - LifeCell.cpp 
+  - LifeRule.h
+  - LifeRule.cpp
+  - utils.h
+  - compile.sh
+subtasks:
+  - score: 100
+    id: 1
+    type: sum
+    cases:
+      - input: base_00.in
+        output: base_00.ans
+      - input: base_01.in
+        output: base_01.ans
+      - input: base_02.in
+        output: base_02.ans
+      - input: base_03.in
+        output: base_03.ans
+      - input: base_04.in
+        output: base_04.ans
+      - input: colorised_00.in
+        output: colorised_00.ans
+      - input: colorised_01.in
+        output: colorised_01.ans
+      - input: colorised_02.in
+        output: colorised_02.ans
+      - input: colorised_03.in
+        output: colorised_03.ans
+      - input: colorised_04.in
+        output: colorised_04.ans
+      - input: extended_00.in
+        output: extended_00.ans
+      - input: extended_01.in
+        output: extended_01.ans
+      - input: extended_02.in
+        output: extended_02.ans
+      - input: extended_03.in
+        output: extended_03.ans
+      - input: extended_04.in
+        output: extended_04.ans
+      - input: generations_00.in
+        output: generations_00.ans
+      - input: generations_01.in
+        output: generations_01.ans
+      - input: generations_02.in
+        output: generations_02.ans
+      - input: generations_03.in
+        output: generations_03.ans
+      - input: generations_04.in
+        output: generations_04.ans
+      - input: weighted_00.in
+        output: weighted_00.ans
+      - input: weighted_01.in
+        output: weighted_01.ans
+      - input: weighted_02.in
+        output: weighted_02.ans
+      - input: weighted_03.in
+        output: weighted_03.ans
+      - input: weighted_04.in
+        output: weighted_04.ans
+langs:
+  - cc.cc17diag
+  - cc
