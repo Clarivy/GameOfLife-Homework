@@ -109,7 +109,7 @@ This function will determine the next state of a cell, based on its current stat
 CellNeighbors GetNeighbors(const GameWorld *const game_world, const int x, const int y) const
 ```
 
-It returns a vector containing all of the neighbors of the cell at $(x, y)$. For example, （？）
+It returns a vector containing all of the neighbors of the cell at $(x, y)$ .
 
 - **_Parameters:_**
 
@@ -119,7 +119,7 @@ It returns a vector containing all of the neighbors of the cell at $(x, y)$. For
 
 - **_Returns:_**
 
-  All neighbors of a cell at $(x, y)$.
+  All neighbors of a cell at $(x, y)$ .
 
 ### Rules Implementation Guide
 
@@ -185,9 +185,9 @@ The detailed rules are as follows:
     - Remain in state 1 ("survive") in the next state if it has 2 or 3 neighbors in state 1 ("alive").
     - Otherwise, switch to state 2 ("aging") in the next state.
 
-3.  A cell in state $m \geq 2$ will switch to state $m + 1$ in the next state. In particular, a cell in state $N$ will be reset to state 0 ("die"). Which means that the state of a cell should always be in the range $[0, N)$ and can **never** be $N$.
+3.  A cell in state $m \geq 2$ will switch to state $m + 1$ in the next state. In particular, a cell in state $N$ will be reset to state 0 ("die"). Which means that the state of a cell should always be in the range $[0, N)$ and can **never** be $N$ .
 
-In this homework, $N = 8$.
+In this homework, $N = 8$ .
 
 - Please note that it should be implemented as `class LifeRuleGenerations`.
 
@@ -206,7 +206,7 @@ The cell class `LifeCell` is defined in `LifeCell.cpp`. It has three attributes:
 - 2: red (colorised rule)
 - 3: blue (colorised rule)
 
-Or the state can be the generation of the cell in generations rule, in which case the state can be any integer from 0 to 8.
+Or the state can be the generation of the cell in generations rule, in which case the state can be any integer from 0 to 7.
 
 Your implementation of the rules should be able to handle the state transition within the range, it is guaranteed in all test cases that:
 
