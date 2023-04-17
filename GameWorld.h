@@ -61,13 +61,36 @@ public:
      */
     std::string GetWorldStr() const;
 
+    /**
+     * @brief Get the world map
+     * 
+     * @return const WorldMap2d& 
+     */
     const WorldMap2d &GetWorldMap() const { return m_map; }
 
+    /**
+     * @brief Get the neighbors using corresponding rule
+     * 
+     * @param x, y the position of the cell
+     * @return CellNeighbors, the neighbors of the cell
+     */
     CellNeighbors GetNeighbors(const int x, const int y) const { return m_rule->GetNeighbors(this, x, y); }
 
+    /**
+     * @brief Check if the position is valid
+     * 
+     * @param x, y a position
+     * @return true if the position is valid, false if the position is invalid
+     */
     bool CheckPosValid(const int x, const int y) const { return (x >= 0 && x < GetHeight()) && (y >= 0 && y < GetWidth()); }
 
     // Setters
+    /**
+     * @brief Set the cell state 
+     * 
+     * @param x, y the position of the cell
+     * @param state 
+     */
     void SetCell(const int x, const int y, const int state)
     {
         m_map[x][y]->SetState(state);
