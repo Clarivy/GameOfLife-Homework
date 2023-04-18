@@ -16,7 +16,7 @@ The universe of the Game of Life can be simply considered as an infinite sheet o
 - **Overpopulation:** Any living cell with more than three living neighbors dies.
 - **Reborn:** Any dead cell with exactly 3 living neighbors comes to life.
 
-![Moreno, Niandry. "A vector-based geographical cellular automata model to mitigate scale sensitivity and to allow objects' geometric transformation." (D:/AA-Study/2023-Spring/CS100_TA/Game of Life/GameOfLife-Homework/pics/rule.png).](./pics/rule.png)
+![image](./pics/rule.png)
 
 There are many [variants of the Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Variations) , each with its own rules. Here are four of the most popular variants:
 
@@ -101,7 +101,7 @@ This function will determine the next state of a cell, based on its current stat
 
   `current`: A `CellPointer`, pointing to a cell to be updated
 
-  `neighbors`: a vector of `CellPointer`, containing all the neighbors of the cell we working on. You need to count the number of living cells in neighbors to determine the next state.
+  `neighbors`: an `std::vector` of `CellPointer`, containing all the neighbors of the cell we working on. You need to count the number of living cells in neighbors to determine the next state.
 
 #### GetNeighbors
 
@@ -300,20 +300,33 @@ This problem contains several files. You may need to read and understand some of
 
 You need to pack `LifeRule.h` and `LifeRule.cpp` into a zip file and submit it to OJ.
 
-The zip file should only contain these two files.
+The zip file can have an arbitrary name, but should only contain these two files. For MacOS users, it is fine to have one additional system-generated file named `.DS_Store`.
 
-## Appendix I: How to work around with multiple files in C++
+In Linux or MacOS, you can run the following command to pack the files:
 
-If you are not familiar with terminal, please refer to [Make-Use-of-Terminal](#appendix-ii-make-use-of-terminal).
+```bash
+zip -r submit.zip LifeRule.h LifeRule.cpp
+```
+
+In Windows, you can use [7-zip](https://www.7-zip.org/) or [BandiZip](http://www.bandisoft.com/) to pack the files, or use the following command:
+
+```bash
+tar.exe -a -c -f submit.zip LifeRule.h LifeRule.cpp 
+```
+
+
+## Appendix: How to work around with multiple files in C++
+
+If you are not familiar with terminal, please refer to [Learn how to use terminal](https://sp18.datastructur.es/materials/lab/lab1setup/lab1setup#b-learn-to-use-the-terminal).
 
 It is hard to maintain a large project within a single file. Splitting your program into multiple small files makes it easier to understand and work with. Each file can focus on one specific task. This is less overwhelming than putting everything in one huge file.
 
 In this homework, you will practice how to write multiple files and how to use them together.
 
-In previous homework, you have written C++ programs containing a single file, which can be compiled with:
+In previous homeworks, you have written C++ programs in a single source file (`*.c`, `*.cpp`). Some homework contain header files (`*.h`, `*.hpp`), which are `#include`d in source files and not passed directly to the compiling command. Recall that, to compile a single-file C++ program, we run:
 
 ```bash
-g++ -Wall -Wextra -o homework homework.cpp
+g++ homework.cpp -o homework -Wall -Wextra 
 ```
 
 `g++` is the GNU C++ compiler. The `-Wall` and `-Wextra` flags enable additional warning messages to catch issues in your code. `homework.cpp` is the file you are compiling. The `-o` flag specifies the name of the executable file, `homework` in this case,
@@ -324,7 +337,7 @@ To compile multiple `.cpp` files into a program, you can run with:
 g++ circle.cpp square.cpp triangle.cpp -o shapes
 ```
 
-This will compile `circle.cpp`, `square.cpp` and `triangle.cpp` into into an executable named `shapes`.
+This will compile `circle.cpp`, `square.cpp` and `triangle.cpp` into into an executable named `shapes`. If there are header files such as `circle.h` or `square.h`, as long as they are properly included, the code in them are also compiled.
 
 When compiling multiple files, make sure to:
 
@@ -344,7 +357,7 @@ When compiling multiple files, make sure to:
 #endif
 ```
 
-3. Declare functions in the header file before implementing them in the source file:
+3. Declare functions in header files before implementing them in source files:
 
 ```cpp
 // square.h
@@ -359,22 +372,4 @@ double calcSquareArea(double side) { ... }
 ```cpp
 #include "square.h"  // Relative to current file
 #include <iostream> // Searches in standard library directories
-```
-
-## Appendix II: Make Use of Terminal
-
-### [Learn how to use terminal](https://sp18.datastructur.es/materials/lab/lab1setup/lab1setup#b-learn-to-use-the-terminal)
-
-### How to pack files in terminal
-
-In Linux or MacOS, you can run the following command to pack the files:
-
-```bash
-zip -r submit.zip LifeRule.h LifeRule.cpp
-```
-
-In Windows, you can use [7-zip](https://www.7-zip.org/) or [BandiZip](http://www.bandisoft.com/) to pack the files, or use the following command:
-
-```bash
-tar.exe -a -c -f submit.zip LifeRule.cpp LifeRule.h
 ```
