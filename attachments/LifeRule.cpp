@@ -37,7 +37,7 @@ void LifeRuleBase::DetermineNextState(const CellPointer &current, const CellNeig
 CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, const int x, const int y) const
 {
     // Get the neighbors of the cell at position x, y
-    CellNeighbors neightbors;
+    CellNeighbors neighbors;
     // Loop through all the neighbors
     for (int i = -1; i <= 1; ++i)
     {
@@ -51,10 +51,10 @@ CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, cons
             if (game_world->CheckPosValid(next_x, next_y))
             {
                 // Add the neighbor to the list of neighbors
-                neightbors.push_back(game_world->GetCell(next_x, next_y));
+                neighbors.push_back(game_world->GetCell(next_x, next_y));
             }
         }
     }
     // Return the list of neighbors
-    return neightbors;
+    return neighbors;
 }

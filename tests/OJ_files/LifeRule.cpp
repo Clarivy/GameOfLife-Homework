@@ -33,7 +33,7 @@ void LifeRuleBase::DetermineNextState(const CellPointer &current, const CellNeig
 
 CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, const int x, const int y) const
 {
-    CellNeighbors neightbors;
+    CellNeighbors neighbors;
     for (int i = -1; i <= 1; ++i)
     {
         for (int j = -1; j <= 1; ++j)
@@ -44,11 +44,11 @@ CellNeighbors LifeRuleBase::GetNeighbors(const GameWorld *const game_world, cons
             int next_y = y + j;
             if (game_world->CheckPosValid(next_x, next_y))
             {
-                neightbors.push_back(game_world->GetCell(next_x, next_y));
+                neighbors.push_back(game_world->GetCell(next_x, next_y));
             }
         }
     }
-    return neightbors;
+    return neighbors;
 }
 
 void LifeRuleColorised::DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors)
@@ -82,7 +82,7 @@ void LifeRuleColorised::DetermineNextState(const CellPointer &current, const Cel
 
 CellNeighbors LifeRuleExtended::GetNeighbors(const GameWorld *const game_world, const int x, const int y) const
 {
-    CellNeighbors neightbors;
+    CellNeighbors neighbors;
     for (int i = -2; i <= 2; ++i)
     {
         for (int j = -2; j <= 2; ++j)
@@ -93,11 +93,11 @@ CellNeighbors LifeRuleExtended::GetNeighbors(const GameWorld *const game_world, 
             int next_y = y + j;
             if (game_world->CheckPosValid(next_x, next_y))
             {
-                neightbors.push_back(game_world->GetCell(next_x, next_y));
+                neighbors.push_back(game_world->GetCell(next_x, next_y));
             }
         }
     }
-    return neightbors;
+    return neighbors;
 }
 
 void LifeRuleGenerations::DetermineNextState(const CellPointer &current, const CellNeighbors &neighbors)
