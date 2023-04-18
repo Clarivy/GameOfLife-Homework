@@ -93,7 +93,7 @@ Here is the definition of the two functions:
 void DetermineNextState(const CellPointer current, const CellNeighbors &neighbors) const
 ```
 
-This function will determine the next state of a cell, based on its current state and the number of lived `neighbors`. 
+This function will determine the next state of a cell, based on its current state and the number of lived `neighbors`.
 
 - **_Parameters:_**
 
@@ -145,25 +145,25 @@ The extended rule is a variant of the original game, where a cell's neighborhood
 
 #### Weighted Rule
 
-The weighted life rule is a variant of our extended game. Now the living cells are all weighted, meaning that some neighbors might have greater influence. 
+The weighted life rule is a variant of our extended game. Now the living cells are all weighted, meaning that some neighbors might have greater influence.
 
-First, let's define the *total influence* of a cell. This shows how much influence a cell receives from its neighbors in all. In our rules, each neighbor's weight **relative** to $x$ can be represented as the matrix below:
+First, let's define the _total influence_ of a cell. This shows how much influence a cell receives from its neighbors in all. In our rules, each neighbor's weight **relative** to $x$ can be represented as the matrix below:
 
 $$ \begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 & 2& 2& 1 \\ 1 & 1 & 2& 1& 1\end{matrix}\tag{2}$$
 
-Then, knowing every neighbor's *weight* ($W$) and *state* ($S$, dead for 0 and live for 1),  the *total influence* ($F$) of a cell can be computed with the equation:
+Then, knowing every neighbor's _weight_ ($W$) and _state_ ($S$, dead for 0 and live for 1), the _total influence_ ($F$) of a cell can be computed with the equation:
 
-$$ F_x = \sum\limits_{y}W_y \cdot S_y, \text{ for all y in x's neighborhood} $$
+$$ F*x = \sum\limits*{y}W_y \cdot S_y, \text{ for all y in x's neighborhood} $$
 
 So in detail, what you should do is:
 
-1. For a cell, calculate the sum of the weights of its neighbors. We call this *total influence*.
-2. **Underpopulation:** Any cells with a *total influence* $<4$ dies.
-3. **Survive:** Any living cell with $4 \leq $ *total influence* $\leq 6 $ survives.
-4. **Overpopulation:** Any cells with a *total influence* $>6$ dies.
-5. **Reborn:** Any dead cell with $5 \leq$ *total influence* $\leq 6 $  becomes alive.
+1. For a cell, calculate the sum of the weights of its neighbors. We call this _total influence_.
+2. **Underpopulation:** Any cells with a _total influence_ $<4$ dies.
+3. **Survive:** Any living cell with $4 \leq $ _total influence_ $\leq 6 $ survives.
+4. **Overpopulation:** Any cells with a _total influence_ $>6$ dies.
+5. **Reborn:** Any dead cell with $5 \leq$ _total influence_ $\leq 6 $ becomes alive.
 
-For example, the cell in the center of the following grid has a *total influence* of 6, so it will survive in the next generation.
+For example, the cell in the center of the following grid has a _total influence_ of 6, so it will survive in the next generation.
 
 ![https://conwaylife.com/wiki/Moore_neighbourhood](pics/weighted.png)
 
@@ -215,21 +215,22 @@ Your implementation of the rules should be able to handle the state transition w
 
 #### Map File
 
-Our game world can be represented by a map file. In our homework, we use a simple `.cells` file to store the initial state of the game. 
+Our game world can be represented by a map file. In our homework, we use a simple `.cells` file to store the initial state of the game.
 
-We provide some example files in the `map` folder, you can refer to [How-to-Run](#how-to-run) to see how to load the map file. 
+We provide some example files in the `map` folder, you can refer to [How-to-Run](#how-to-run) to see how to load the map file.
 
 You don't need to load the map by yourself, our framework have already implemented the map loading function. In case you want to edit the map file, here is a brief introduction of the file format:
 
 The file format is similar to [plain text format](https://conwaylife.com/wiki/Plaintext) for simpilicity. However, to support different rules, we have made some changes to the file format.
 
-
 > ##### Notice: This part can be ignored if you don't want to edit the map file.
+>
 > ###### Comments start with a '!' and are ignored
 >
 > ###### Cells are represented by a 'O' or '.' (alive or dead respectively)
 >
 > ###### 'R' and 'B' represent red and blue cells in colorised rule (it is ignored in other rules, and not supported officially by golly).
+>
 > ###### Numbers represent the generation of the cell in generations rule (it is ignored in other rules, and not supported officially by golly).
 
 ### How to run
@@ -272,27 +273,26 @@ This problem contains several files. You may need to read and understand some of
 
 #### Files you'll edit:
 
-| Filename                                   | Description |
-| ------------------------------------------ | ----------- |
-| `LifeRule.h`, `LifeRule.cpp` | 	Where all of your rules will reside. You need to implement the rules in this file. You only need to submit these files.    |
+| Filename                     | Description                                                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `LifeRule.h`, `LifeRule.cpp` | Where all of your rules will reside. You need to implement the rules in this file. You only need to submit these files. |
 
 #### Files you might want to look at:
 
-| Filename                     | Description |
-| ---------------------------- | ----------- |
-| `LifeCell.h`, `LifeCell.cpp` | The cell class, representing a cell in a grid in the game world. |
-| `GameWorld.h`, `GameWorld.cpp` | It contains the game world class, which maintains all the cells in the game world. |
-| `main.cpp`                   |        The main file that runs the game. This file defined a game instance and build up a interface.    |
-| `GameSettings.h`             | The file that defines some basic game settings as described above. You may want to use these settings in your implementation. |
-| `map/base.cells`, `map/colorised.cells`... |  The map files for different rules. You can load them in the game. |
+| Filename                                   | Description                                                                                                                   |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `LifeCell.h`, `LifeCell.cpp`               | The cell class, representing a cell in a grid in the game world.                                                              |
+| `GameWorld.h`, `GameWorld.cpp`             | It contains the game world class, which maintains all the cells in the game world.                                            |
+| `main.cpp`                                 | The main file that runs the game. This file defined a game instance and build up a interface.                                 |
+| `GameSettings.h`                           | The file that defines some basic game settings as described above. You may want to use these settings in your implementation. |
+| `map/base.cells`, `map/colorised.cells`... | The map files for different rules. You can load them in the game.                                                             |
 
 #### Supporting files you can ignore:
 
-| Filename                                   | Description |
-| ------------------------------------------ | ----------- |
-| `utils.h`                                  |             Useful functions for implementing the interface. |
-| `GameManager.cpp`, `GameManager.h`         | Simple ASCII graphics for the game |
-
+| Filename                           | Description                                      |
+| ---------------------------------- | ------------------------------------------------ |
+| `utils.h`                          | Useful functions for implementing the interface. |
+| `GameManager.cpp`, `GameManager.h` | Simple ASCII graphics for the game               |
 
 ## Submission
 
@@ -300,7 +300,7 @@ You need to pack `LifeRule.h` and `LifeRule.cpp` into a zip file and submit it t
 
 The zip file should only contain these two files.
 
-## Appendix I: How to use work around with multiple files in C++
+## Appendix I: How to work around with multiple files in C++
 
 If you are not familiar with terminal, please refer to [Make-Use-of-Terminal](#appendix-ii-make-use-of-terminal).
 
