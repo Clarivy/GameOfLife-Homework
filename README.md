@@ -56,11 +56,11 @@ You will notice that some of the patterns are stable, meaning that they will con
 
 The Game of Life is a very simple game, but it has been shown to be capable of producing complex and interesting patterns. In fact, there are entire websites and books dedicated to the study of the Game of Life.
 
-Your task is to complete the implementation of our C++ version of the Game of Life with multiple rules. We have provided you a framework to help you get started. You need to implement all the functions in `LifeRule.cpp`. You can refer to [How-to-Run](#how-to-run) to play with the game.
+Your task is to complete the implementation of our C++ version of the Game of Life with multiple rules. We have provided you a framework to help you get started. You need to design the variant game rules in `LifeRule.h` and `LifeRule.cpp`. You can refer to [How-to-Run](#how-to-run) to play with the game.
 
-Rules should be implemented as classes. You need to think about how to design the class structure, and the inheritance relationship between different rules.
+Different rules are represented by different classes that inherit on the common base rule `class LifeRuleBase`. You need to think about how to design these class structures, and the inheritance relationship between different rules.
 
-We have already wrote the base rule, `class LifeRuleBase`, left you to finish four variant rules listed above: `LifeRuleColorised`, `LifeRuleExtended`, `LifeRuleWeighted`, and `LifeRuleGenerations`.
+We have already provided the base rule, `class LifeRuleBase`. Left you to finish are four variant rules listed above: `LifeRuleColorised`, `LifeRuleExtended`, `LifeRuleWeighted`, and `LifeRuleGenerations`.
 
 Here is the description:
 
@@ -68,9 +68,11 @@ Here is the description:
 - `LifeRuleColorised`: **You need to complete it**. In this variant, the live cells have different colors.
 - `LifeRuleExtended`: **You need to complete it**. In this variant, the size of a cell's neighborhood is extended.
 - `LifeRuleWeighted`: **You need to complete it**. In this variant, neighbors are weighted.
-- `LifeRuleGenerations`: **You need to complete it**. In this variant, the cells 'get older' before eventually dying.
+- `LifeRuleGenerations`: **You need to complete it**. In this variant, the cells "get older" before eventually dying.
 
-To make sure the homework compiles, every rule should be a subclass of `LifeRuleBase`. There is no need for you to change other files. And since you can only submit `LifeRule.cpp` and `LifeRule.h` to OJ, any other change will not be considered.
+To make sure the homework compiles, every rule must be a subclass of `LifeRuleBase`. 
+
+You will be working only on two files, `LifeRule.h` and `LifeRule.cpp`. Other files are not submitted.
 
 ### Framework
 
@@ -123,9 +125,9 @@ It returns a vector containing all of the neighbors of the cell at $(x, y)$ .
 
 #### Colorised Rule
 
-The colorised rule is a variant of the original game. Now the living cells are all colored with one of the two different colors, red and blue. When a cell is born, its color will be decided by the major color of its three lived neighbors.
+The colorised rule is a variant of the original game. Now the living cells are all colored with one of the two different colors, red and blue. When a cell is born, its color will be decided by the majority color of its three lived neighbors.
 
-Since the birth of a cell only happens when it has 3 living neighbors, and we only have 2 colors here, you don't need to worry about equality.
+Since the birth of a cell only happens when it has 3 living neighbors, and we only have 2 colors here, a majority color is guaranteed.
 
 - Please note that it should be implemented as `class LifeRuleColorised`.
 
@@ -248,7 +250,7 @@ In Linux or MacOS, you can compile with:
 g++ -Wall -Wextra -o gol GameWorld.cpp GameManager.cpp LifeCell.cpp main.cpp LifeRule.cpp
 ```
 
-The framework we provide does not compile right off-hand, because the four `class`es of life rules for you to write haven't inherited from `LifeRuleBase` yet. Try to make these `class`es inherit from `LifeRuleBase`, and you can compile your code to run the base game.
+The framework we provide does not compile right off-hand, because the four `class`es of life rules for you to write haven't inherited from `LifeRuleBase` yet. Try to make these `class`es inherit from `LifeRuleBase`, and you can compile your code to run the already implemented base game.
 
 #### Run the project
 
@@ -274,7 +276,7 @@ This problem contains several files. You may need to read and understand some of
 
 | Filename                                   | Description |
 | ------------------------------------------ | ----------- |
-| `LifeRule.h`, `LifeRule.cpp` | 	Where all of your rules will reside. You need to implement the rules in this file. You only need to submit these files.    |
+| `LifeRule.h`, `LifeRule.cpp` | 	Where all of your rules will reside. You need to implement the rules in these files. You only need to submit these files.    |
 
 #### Files you might want to look at:
 
@@ -298,7 +300,7 @@ This problem contains several files. You may need to read and understand some of
 
 You need to pack `LifeRule.h` and `LifeRule.cpp` into a zip file and submit it to OJ.
 
-The zip file should only contain these two files.
+The zip file should only contain these two files. For MacOS users, it is fine to have a system-generated file named `.DS_Store`.
 
 In Linux or MacOS, you can run the following command to pack the files:
 
@@ -306,7 +308,7 @@ In Linux or MacOS, you can run the following command to pack the files:
 zip -r submit.zip LifeRule.h LifeRule.cpp
 ```
 
-In Windows, you can use [7-zip](https://www.7-zip.org/) to pack the files or use the following command:
+In Windows, you can use [7-zip](https://www.7-zip.org/) or [BandiZip](http://www.bandisoft.com/) to pack the files, or use the following command:
 
 ```bash
 tar.exe -a -c -f submit.zip LifeRule.cpp LifeRule.h
