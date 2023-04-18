@@ -1,5 +1,11 @@
 # Homework: Game Of Life
 
+**Welcome to the world of the Game of Life!**
+
+In this assignment, you will build your own games in C++ using our framework. This will be a challenging but rewarding experience. 
+
+Have fun!
+
 ## Background
 
 [**The Game of Life**](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) is a simple but profound game, created by one of the world greatest mathematician John Horton Conway. This game does not require player participation because all evolutionary processes are determined by the initial state and will proceed spontaneously. A common way to play with the Game of Life is to give it an initial state and watch how it evolves.
