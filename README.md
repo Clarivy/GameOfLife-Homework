@@ -22,7 +22,7 @@ The universe of the Game of Life can be simply considered as an infinite sheet o
 - **Overpopulation:** Any living cell with more than three living neighbors dies.
 - **Reborn:** Any dead cell with exactly 3 living neighbors comes to life.
 
-![image](./pics/rule.png)
+![Moreno, Niandry. "A vector-based geographical cellular automata model to mitigate scale sensitivity and to allow objects' geometric transformation."](./pics/rule.png)
 
 There are many [variants of the Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Variations) , each with its own rules. Here are four of the most popular variants:
 
@@ -161,7 +161,7 @@ $$ \begin{matrix} 1 & 1 & 2& 1& 1\\ 1 & 2 & 2& 2& 1\\ 2 & 2 & x& 2& 2 \\ 1 & 2 &
 
 Then, knowing every neighbor's _weight_ ($W$) and _state_ ($S$, dead for 0 and live for 1), the _total influence_ ($F$) of a cell can be computed with the equation:
 
-$$ F*x = \sum\limits*{y}W_y \cdot S_y, \text{ for all y in x's neighborhood} $$
+$$ F*x = \sum\limits_{y}W_y \cdot S_y, \text{ for all y in x's neighborhood} $$
 
 So in detail, what you should do is:
 
