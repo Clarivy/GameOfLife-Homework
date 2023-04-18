@@ -68,7 +68,7 @@ public:
  * may need to be overriden.
  *
  */
-class LifeRuleColorised : public LifeRuleBase
+class LifeRuleColorised
 {
 
     /**
@@ -90,7 +90,7 @@ class LifeRuleColorised : public LifeRuleBase
  * may need to be overriden.
  *
  */
-class LifeRuleExtended : public LifeRuleBase
+class LifeRuleExtended
 {
     /**
      * @brief Get the Rule Name
@@ -112,7 +112,7 @@ class LifeRuleExtended : public LifeRuleBase
  * may need to be overriden.
  * 
  */
-class LifeRuleWeighted : public LifeRuleBase
+class LifeRuleWeighted
 {
     /**
      * @brief Get the Rule Name
@@ -133,7 +133,7 @@ class LifeRuleWeighted : public LifeRuleBase
  * may need to be overriden.
  *
  */
-class LifeRuleGenerations : public LifeRuleBase
+class LifeRuleGenerations
 {
     /**
      * @brief Get the Rule Name
