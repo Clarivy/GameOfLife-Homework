@@ -280,8 +280,8 @@ This problem contains several files. You may need to read and understand some of
 
 | Filename                     | Description |
 | ---------------------------- | ----------- |
-| `LifeCell.h`, `LifeCell.cpp` | The cell class, which represents a cell in a grid in the game world. |
-| `GameWorld.h`, `GameWorld.cpp` | Contain the game world class, which maintains all the cells in the game world. |
+| `LifeCell.h`, `LifeCell.cpp` | The cell class, representing a cell in a grid in the game world. |
+| `GameWorld.h`, `GameWorld.cpp` | It contains the game world class, which maintains all the cells in the game world. |
 | `main.cpp`                   |        The main file that runs the game. This file defined a game instance and build up a interface.    |
 | `GameSettings.h`             | The file that defines some basic game settings as described above. You may want to use these settings in your implementation. |
 | `map/base.cells`, `map/colorised.cells`... |  The map files for different rules. You can load them in the game. |
