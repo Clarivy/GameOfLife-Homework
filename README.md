@@ -188,7 +188,7 @@ The detailed rules are as follows:
 1.  A cell in state 0 ("dead") will switch to state 1 ("born") in the next state if it has exactly 3 neighbors that is **not** in state 0 ("dead").
 2.  A cell in state 1 ("alive") will:
 
-    - Remain in state 1 ("survive") in the next state if it has 2 or 3 neighbors in state 1 ("alive").
+    - Remain in state 1 ("survive") in the next state if it has 2 or 3 neighbors **not** in state 0 ("dead").
     - Otherwise, switch to state 2 ("aging") in the next state.
 
 3.  A cell in state $m \geq 2$ will switch to state $m + 1$ in the next state. In particular, a cell in state $N$ will be reset to state 0 ("die"). Which means that the state of a cell should always be in the range $[0, N)$ and can **never** be $N$ .
